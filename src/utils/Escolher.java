@@ -16,21 +16,24 @@ import java.util.Scanner;
 public class Escolher {
     public static Jogador jogador(Scanner sc) {
         System.out.print("Digite o seu nome: ");
+        sc.nextLine();
         String nome = sc.nextLine();
-
+        Console.limpar();
         return new Jogador(nome);
     }
 
     public static void pokemon(Scanner sc, Treinador treinador) {
         Pokemon[] pokemons = treinador.getPokemons();
 
-        System.out.println("Escolha um pokemon:");
+        Criar.divisoria("Escolha um pokemon");
         for (int i = 0; i < pokemons.length; i++) {
             System.out.println((i + 1) + " - " + pokemons[i].getNome());
         }
+        Criar.divisoria();
+
         System.out.print("Escolha: ");
         int escolha = sc.nextInt();
-
+        Console.limpar();
         treinador.escolherPokemon(escolha - 1);
     }
 
@@ -43,19 +46,34 @@ public class Escolher {
     public static Ataque ataque(Scanner sc, Pokemon pokemon) {
         Ataque[] ataques = pokemon.getAtaques();
 
-        System.out.println("Escolha um ataque:");
-        for (int i = 0; i < ataques.length; i++) {
-            System.out.println((i + 1) + " - " + ataques[i].toString());
+        Ataque ataque = null;
+
+        while (ataque == null) {
+            ataqueOpcoes(ataques);
+            int escolha = sc.nextInt();
+            Console.limpar();
+            try {
+                ataque = ataques[escolha - 1];
+            } catch (Exception e) {
+                Criar.divisoriaEmbrulho("Opção inválida!");
+            }
         }
-        System.out.print("Escolha: ");
-        int escolha = sc.nextInt();
-        System.out.println("-----------------------");
-        Ataque ataque = ataques[escolha - 1];
+
         System.out.printf("%s usou %s\n", pokemon.getNome(), ataque.getNome());
 
         return ataque;
     }
 
+    private static void ataqueOpcoes(Ataque[] ataques) {
+        Criar.divisoria("ATACAR");
+        System.out.println("Escolha um ataque:");
+        Criar.divisoria();
+        for (int i = 0; i < ataques.length; i++) {
+            System.out.println((i + 1) + " - " + ataques[i].toString());
+        }
+        Criar.divisoria();
+        System.out.print("Escolha: ");
+    }
     public static Ataque ataque(Pokemon pokemon) {
         Ataque[] ataques = pokemon.getAtaques();
         Ataque ataque = ataques[aleatorio(0, ataques.length - 1)];
@@ -65,31 +83,40 @@ public class Escolher {
     }
 
     public static Adversario adversario(Scanner sc) {
-        System.out.println("Escolha um adversário:");
         Adversarios[] adversarios = Adversarios.values();
-        for (int i = 0; i < adversarios.length; i++) {
-            System.out.println((i + 1) + " - " + adversarios[i].toString());
-        }
-        System.out.print("Escolha: ");
-        int escolha = sc.nextInt();
 
-        Adversario adversario;
-        switch (adversarios[escolha - 1]) {
-            case ASH:
-                adversario = new Ash();
-                break;
-            case MISTY:
-                adversario = new Misty();
-                break;
-            case BROCK:
-                adversario = new Brock();
-                break;
-            default:
-                throw new IllegalArgumentException("Adversário inválido");
+        adversarios(adversarios);
+
+        Adversario adversario = null;
+        while (adversario == null) {
+            int escolha = sc.nextInt();
+            Console.limpar();
+            try {
+                switch (adversarios[escolha - 1]) {
+                    case ASH -> adversario = new Ash();
+                    case MISTY -> adversario = new Misty();
+                    case BROCK -> adversario = new Brock();
+                    default -> throw new IllegalArgumentException();
+                };
+            } catch (IllegalArgumentException e) {
+                System.out.println("Adversário inválido!");
+            }
         }
+
         Escolher.pokemon(adversario);
 
         return adversario;
+    }
+
+    public static void adversarios(Adversarios[] adversarios) {
+        Criar.divisoria("ADVERSÁRIO");
+        System.out.println("Escolha um adversário:");
+        Criar.divisoria();
+        for (int i = 0; i < adversarios.length; i++) {
+            System.out.println((i + 1) + " - " + adversarios[i].toString());
+        }
+        Criar.divisoria();
+        System.out.print("Escolha: ");
     }
 
     public static Integer aleatorio(int min, int max) {

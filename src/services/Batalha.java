@@ -10,7 +10,9 @@ import utils.Escolher;
 import java.util.Scanner;
 
 public class Batalha {
-    public static Boolean iniciar(
+    private Boolean jogadorVenceu;
+
+    public void iniciar(
             Scanner sc,
             Jogador jogador,
             Adversario adversario
@@ -24,7 +26,8 @@ public class Batalha {
             resultado(adversario, pokemonAdversario);
 
             if (!adversario.estaVivo()) {
-                return true;
+                jogadorVenceu = true;
+                return;
             }
 
             int ataqueAdversario = Escolher.ataque(pokemonAdversario).getDano();
@@ -32,11 +35,15 @@ public class Batalha {
             resultado(jogador, pokemonJogador);
 
             if (!jogador.estaVivo()) {
-                return false;
+                jogadorVenceu = false;
+                return;
             }
         }
     }
 
+    public Boolean ganhou() {
+        return jogadorVenceu;
+    }
     private static void resultado(Treinador treinador, Pokemon pokemon) {
         Criar.divisoria(treinador.toString());
         System.out.println(pokemon);

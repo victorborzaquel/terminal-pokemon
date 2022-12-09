@@ -3,8 +3,11 @@ package utils;
 import data.Jogador;
 import models.Adversario;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Criar {
-    private static final Integer TAMANHO = 30;
+    private static final Integer TAMANHO = 40;
 
     public static void divisoria(String texto) {
         int linha = (TAMANHO - texto.length()) / 2;
@@ -15,6 +18,12 @@ public class Criar {
 
     public static void divisoria() {
         System.out.println("-".repeat(TAMANHO));
+    }
+
+    public static void divisoriaEmbrulho(String texto) {
+        divisoria();
+        System.out.println(texto);
+        divisoria();
     }
 
     public static void textoInicial(Jogador jogador, Adversario adversario) {

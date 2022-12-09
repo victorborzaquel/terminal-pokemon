@@ -11,29 +11,33 @@ import java.util.Scanner;
 
 public class Historico {
     public static void exibir(Scanner sc) {
+        while (true) {
+            opcoes();
+            System.out.print("Escolha: ");
+            int escolha = sc.nextInt();
+            Console.limpar();
+            try {
+                switch (escolha) {
+                    case 1 -> ler(Historicos.VITORIAS);
+                    case 2 -> ler(Historicos.DERROTAS);
+                    case 3 -> {
+                        return;
+                    }
+                    default -> throw new Exception();
+                }
+            } catch (Exception e) {
+                Criar.divisoriaEmbrulho("Escolha inválida!");
+            }
+        }
+    }
+    private static void opcoes() {
+        Criar.divisoria("HISTÓRICO");
         System.out.println("Você quer ver as vitórias ou derrotas?");
+        Criar.divisoria();
         System.out.println("1 - Vitórias");
         System.out.println("2 - Derrotas");
         System.out.println("3 - Voltar");
-        System.out.print("Escolha: ");
-        try {
-            int escolha = sc.nextInt();
-            if (escolha > 3 || escolha < 1) {
-               throw new Exception();
-            }
-
-            switch (escolha) {
-                case 1:
-                    ler(Historicos.VITORIAS);
-                    break;
-                case 2:
-                    ler(Historicos.DERROTAS);
-                    break;
-            }
-        } catch (Exception e) {
-            System.out.println("Escolha inválida!");
-            exibir(sc);
-        }
+        Criar.divisoria();
     }
     public static void salvar(Jogador jogador, Historicos historico) {
         String diretorio = "src/historico/" + historico.getDiretorio();
@@ -54,7 +58,7 @@ public class Historico {
             printWriter.flush();
             printWriter.close();
         } catch (IOException e) {
-            System.out.println("Erro ao salvar historico");
+            Criar.divisoriaEmbrulho("Erro ao salvar historico");
         }
     }
 
@@ -73,10 +77,16 @@ public class Historico {
             fileReader.close();
             bufferedReader.close();
 
+            if (linhas.size() == 0) {
+                Criar.divisoriaEmbrulho("Nenhum registro encontrado!");
+                return;
+            }
+
             Criar.divisoria(historico.getTitulo());
             linhas.forEach(System.out::println);
+            Criar.divisoria();
         } catch (IOException e) {
-            System.out.println("Erro ao ver historico");
+            Criar.divisoriaEmbrulho("Erro ao ver historico");
         }
     }
 }
