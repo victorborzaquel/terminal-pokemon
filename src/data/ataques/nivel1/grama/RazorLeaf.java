@@ -1,13 +1,15 @@
-package data.ataques;
+package data.ataques.nivel1.grama;
 
+import data.enums.Especialidades;
 import models.Ataque;
 
 public class RazorLeaf extends Ataque {
     public RazorLeaf() {
         super(
                 "Razor Leaf",
-                200,
-                300
+                Especialidades.GRAMA,
+                13,
+                17
         );
     }
 }

@@ -3,8 +3,8 @@ package utils;
 import data.Jogador;
 import models.Adversario;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Criar {
     private static final Integer TAMANHO = 40;
@@ -26,12 +26,54 @@ public class Criar {
         divisoria();
     }
 
-    public static void textoInicial(Jogador jogador, Adversario adversario) {
+    public static void divisoriaEmbrulho(String titulo, String texto) {
+        divisoria(titulo);
+        System.out.println(texto);
+        divisoria();
+    }
+
+    public static void divisoriaEmbrulho(String titulo, List<String> linhas) {
+        divisoria(titulo);
+        linhas.forEach(System.out::println);
+        divisoria();
+    }
+
+    public static void divisoriaEmbrulho(String titulo, String[] linhas) {
+        divisoria(titulo);
+        for (String linha : linhas) {
+            System.out.println(linha);
+        }
+        divisoria();
+    }
+
+    public static Integer escolhaUmaOpcao(Scanner sc, String titulo, String[] opcoes) {
+        String subtitulo = "Escolha uma opção:";
+        return escolhaUmaOpcao(sc, titulo, subtitulo, opcoes);
+    }
+
+    public static Integer escolhaUmaOpcao(Scanner sc, String titulo, String subtitulo, String[] opcoes) {
+        Criar.divisoria(titulo.toUpperCase());
+        System.out.println(subtitulo);
         Criar.divisoria();
-        System.out.printf("%s: %s\n", adversario.getNome(), adversario.getFrase());
+
+        for (int i = 0; i < opcoes.length; i++) {
+            System.out.printf("%d - %s\n", i + 1, opcoes[i]);
+        }
+
         Criar.divisoria();
-        System.out.printf("%s (%s)\n", adversario.getNome(), adversario.getPokemonAtual().getNome());
-        System.out.printf("%s (%s)\n", jogador.getNome(), jogador.getPokemonAtual().getNome());
-        Criar.divisoria();
+        System.out.print("Escolha: ");
+        int escolha = sc.nextInt();
+        Console.limpar();
+
+        if (escolha > opcoes.length || escolha <= 0) {
+            Criar.opcaoInvalida();
+            return escolhaUmaOpcao(sc, titulo, subtitulo, opcoes);
+        }
+
+        return escolha;
+    }
+
+    public static void opcaoInvalida() {
+        System.out.println("Opção inválida!");
     }
 }

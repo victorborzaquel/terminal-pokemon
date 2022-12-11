@@ -1,14 +1,16 @@
-package data.pokemons;
+package data.pokemons.evolucao1;
 
-import data.ataques.RazorLeaf;
+import data.ataques.nivel1.grama.RazorLeaf;
+import data.enums.Especialidades;
 import models.Ataque;
 import models.Pokemon;
 
-public class Ivyssauro extends Pokemon {
-    public Ivyssauro() {
+public class Venussauro extends Pokemon {
+    public Venussauro() {
         super(
-                "Ivyssauro",
-                new Venussauro(),
+                "Venussauro",
+                Especialidades.GRAMA,
+                null,
                 500,
                 new Ataque[]{
                         new RazorLeaf(),

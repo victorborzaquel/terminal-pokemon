@@ -1,45 +1,38 @@
 package data;
 
+import data.pokemons.evolucao1.Bulbassauro;
+import data.pokemons.evolucao2.Charmander;
+import data.pokemons.evolucao3.Blastoise;
 import models.Pokemon;
 import models.Treinador;
-import data.pokemons.Bulbassauro;
-import data.pokemons.Charmander;
-import data.pokemons.Squirtle;
 
 public class Jogador extends Treinador {
-    private Integer nivel;
     private Integer pedraEvolucao;
     public Jogador(String nome) {
         super(nome, new Pokemon[]{
             new Bulbassauro(),
-            new Squirtle(),
+            new Blastoise(),
             new Charmander()
         });
-        this.nivel = 1;
         this.pedraEvolucao = 1;
-    }
-    public Integer getNivel() {
-        return nivel;
-    }
-    public void evoluir() {
-        nivel++;
     }
 
     public void adicionarPedraEvolucao() {
         pedraEvolucao++;
     }
 
-    public void evoluirPokemon() {
+    public void evoluirPokemon(Integer indice) {
         if (pedraEvolucao <= 0) {
-            return;
+            throw new RuntimeException("Você não possui pedras de evolução!");
         }
-        for (int i = 0; i < pokemons.length; i++) {
-            if (pokemons[i].equals(pokemonAtual)) {
-                pokemons[i] = pokemonAtual.getEvolucao();;
-                break;
-            }
+
+        Pokemon evolucao = pokemons[indice].getEvolucao();
+
+        if (evolucao == null) {
+            throw new RuntimeException("Esse pokemon não pode evoluir!");
         }
-        pokemonAtual = pokemonAtual.getEvolucao();
+
+        pokemons[indice] = evolucao;
         pedraEvolucao--;
     }
     public Boolean temPedraEvolucao() {

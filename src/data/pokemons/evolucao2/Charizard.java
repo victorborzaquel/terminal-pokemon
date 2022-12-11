@@ -1,14 +1,16 @@
-package data.pokemons;
+package data.pokemons.evolucao2;
 
-import data.ataques.FireFang;
+import data.ataques.nivel1.fogo.FireFang;
+import data.enums.Especialidades;
 import models.Ataque;
 import models.Pokemon;
 
-public class Charmeleon extends Pokemon {
-    public Charmeleon() {
+public class Charizard extends Pokemon {
+    public Charizard() {
         super(
-                "Charmeleon",
-                new Charizard(),
+                "Charizard",
+                Especialidades.FOGO,
+                null,
                 600,
                 new Ataque[]{
                         new FireFang(),

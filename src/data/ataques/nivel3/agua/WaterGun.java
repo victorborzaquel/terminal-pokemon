@@ -1,13 +1,15 @@
-package data.ataques;
+package data.ataques.nivel3.agua;
 
+import data.enums.Especialidades;
 import models.Ataque;
 
 public class WaterGun extends Ataque {
     public WaterGun() {
         super(
                 "WaterGun",
-                200,
-                300
+                Especialidades.AGUA,
+                20,
+                30
         );
     }
 }
