@@ -9,8 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Arquivo {
+    private static final String PATH = "src/database/";
+
     public static void salvar(Jogador jogador, Integer nivel, Historicos historico) {
-        String diretorio = "src/historico/" + historico.getDiretorio();
+        String diretorio = PATH + historico.getDiretorio();
         File file = new File(diretorio);
 
         Pokemon[] pokemons = jogador.getPokemons();
@@ -33,7 +35,7 @@ public class Arquivo {
     }
 
     public static void ler(Historicos historico) {
-        String diretorio = "src/historico/" + historico.getDiretorio();
+        String diretorio = PATH + historico.getDiretorio();
         File file = new File(diretorio);
         List<String> linhas = new ArrayList<>();
 
