@@ -1,7 +1,7 @@
 package services;
 
-import data.Jogador;
-import data.enums.Historicos;
+import models.Jogador;
+import data.Historicos;
 import models.Adversario;
 import utils.Criar;
 import utils.Escolher;

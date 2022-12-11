@@ -1,18 +1,16 @@
-package data;
+package models;
 
-import data.pokemons.evolucao1.Bulbassauro;
-import data.pokemons.evolucao2.Charmander;
-import data.pokemons.evolucao3.Blastoise;
-import models.Pokemon;
-import models.Treinador;
+import data.Pokemons;
+import utils.Instanciar;
 
 public class Jogador extends Treinador {
     private Integer pedraEvolucao;
+
     public Jogador(String nome) {
         super(nome, new Pokemon[]{
-            new Bulbassauro(),
-            new Blastoise(),
-            new Charmander()
+                Instanciar.pokemon(Pokemons.BULBASSAURO),
+                Instanciar.pokemon(Pokemons.BULBASSAURO),
+                Instanciar.pokemon(Pokemons.BULBASSAURO)
         });
         this.pedraEvolucao = 1;
     }
@@ -35,6 +33,7 @@ public class Jogador extends Treinador {
         pokemons[indice] = evolucao;
         pedraEvolucao--;
     }
+
     public Boolean temPedraEvolucao() {
         return pedraEvolucao > 0;
     }

@@ -1,4 +1,4 @@
-package data.enums;
+package data;
 
 public enum Historicos {
     VITORIAS("Vitorias", "vitorias.txt"),

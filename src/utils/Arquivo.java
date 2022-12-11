@@ -1,7 +1,7 @@
 package utils;
 
-import data.Jogador;
-import data.enums.Historicos;
+import models.Jogador;
+import data.Historicos;
 import models.Pokemon;
 
 import java.io.*;

@@ -1,11 +1,9 @@
 package services;
 
-import data.enums.Historicos;
-import models.Pokemon;
+import data.Historicos;
 import utils.Arquivo;
 import utils.Criar;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Menu {
@@ -24,7 +22,7 @@ public class Menu {
         }
     }
 
-    public static void historico(Scanner sc) {
+    private static void historico(Scanner sc) {
         while (true) {
             Integer escolha = Criar.escolhaUmaOpcao(sc, "Histórico", new String[]{"Vitórias", "Derrotas", "Desistencias", "Voltar"});
 

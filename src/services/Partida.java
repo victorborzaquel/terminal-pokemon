@@ -1,6 +1,6 @@
 package services;
 
-import data.Jogador;
+import models.Jogador;
 import models.Adversario;
 import utils.Criar;
 import utils.Escolher;

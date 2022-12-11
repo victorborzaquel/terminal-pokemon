@@ -1,14 +1,14 @@
 package models;
 
-import data.enums.Especialidades;
+import data.Especialidades;
 import utils.Escolher;
 
-public abstract class Ataque {
+public class Ataque {
     private final String nome;
     private final Especialidades especialidade;
     private final Integer danoMinimo;
     private final Integer danoMaximo;
-    protected Ataque(String nome, Especialidades especialidade, Integer danoMinimo, Integer danoMaximo) {
+    public Ataque(String nome, Especialidades especialidade, Integer danoMinimo, Integer danoMaximo) {
         this.nome = nome;
         this.especialidade = especialidade;
         this.danoMinimo = danoMinimo;

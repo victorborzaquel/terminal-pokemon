@@ -1,6 +1,6 @@
 package services;
 
-import data.Jogador;
+import models.Jogador;
 import models.Adversario;
 import models.Ataque;
 import models.Pokemon;
@@ -22,7 +22,7 @@ public class Batalha {
             }
 
             imprimirResultadoAtaque(adversario, ataqueJogador);
-            Criar.divisoriaEmbrulho("treinadores", new String[] { vidaPokemon(jogador), vidaPokemon(adversario) });
+            Criar.divisoriaEmbrulho("treinadores", vidaPokemon(jogador), vidaPokemon(adversario));
 
             if (adversario.pokemonAtualEstaMorto()) {
                 imprimiorPokemonAtualEstaMorto(adversario.getPokemonAtual());

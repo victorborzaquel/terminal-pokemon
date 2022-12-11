@@ -1,20 +1,16 @@
 package models;
 
-import data.enums.Especialidades;
+import data.Especialidades;
 
-public abstract class Adversario extends Treinador{
+public class Adversario extends Treinador{
     private final Especialidades especialidade;
     private final String frase;
 
-    protected Adversario(String nome, Especialidades especialidade, String frase, Pokemon[] pokemons) {
+    public Adversario(String nome, Especialidades especialidade, String frase, Pokemon[] pokemons) {
         super(nome, pokemons);
         this.especialidade = especialidade;
         this.frase = frase;
 
-    }
-
-    public Especialidades getEspecialidade() {
-        return especialidade;
     }
 
     public String getFrase() {

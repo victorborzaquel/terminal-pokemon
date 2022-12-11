@@ -1,8 +1,8 @@
 package models;
 
-import data.enums.Especialidades;
+import data.Especialidades;
 
-public abstract class Pokemon {
+public class Pokemon {
     private final String nome;
     private final Especialidades especialidade;
     private final Pokemon evolucao;
@@ -10,7 +10,7 @@ public abstract class Pokemon {
     private final Integer vidaMaxima;
     private Integer vida;
 
-    protected Pokemon(String nome, Especialidades especialidade, Pokemon evolucao, Integer vidaMaxima, Ataque[] ataques) {
+    public Pokemon(String nome, Especialidades especialidade, Pokemon evolucao, Integer vidaMaxima, Ataque[] ataques) {
         this.nome = nome;
         this.especialidade = especialidade;
         this.evolucao = evolucao;
@@ -63,9 +63,6 @@ public abstract class Pokemon {
         return evolucao;
     }
 
-    public Especialidades getEspecialidade() {
-        return especialidade;
-    }
     @Override
     public String toString() {
         return String.format("%s (%d) %s", nome, vida, especialidade.getNome());

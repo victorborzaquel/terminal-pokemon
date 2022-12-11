@@ -1,8 +1,5 @@
 package utils;
 
-import data.Jogador;
-import models.Adversario;
-
 import java.util.List;
 import java.util.Scanner;
 
@@ -26,19 +23,13 @@ public class Criar {
         divisoria();
     }
 
-    public static void divisoriaEmbrulho(String titulo, String texto) {
-        divisoria(titulo);
-        System.out.println(texto);
-        divisoria();
-    }
-
     public static void divisoriaEmbrulho(String titulo, List<String> linhas) {
         divisoria(titulo);
         linhas.forEach(System.out::println);
         divisoria();
     }
 
-    public static void divisoriaEmbrulho(String titulo, String[] linhas) {
+    public static void divisoriaEmbrulho(String titulo, String... linhas) {
         divisoria(titulo);
         for (String linha : linhas) {
             System.out.println(linha);

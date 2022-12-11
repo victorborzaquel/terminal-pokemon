@@ -1,8 +1,7 @@
 package utils;
 
-import data.Adversarioss;
-import data.Jogador;
-import data.enums.Adversarios;
+import models.Jogador;
+import data.Adversarios;
 import models.Adversario;
 import models.Ataque;
 import models.Pokemon;
@@ -12,14 +11,22 @@ import java.util.*;
 
 public class Escolher {
 
-    public static Adversario adversario(Scanner sc, int level) {
-//        Adversarios[] adversarios = (Adversarios[]) Arrays.stream(Adversarios.values()).map(adversario -> adversario.getNivel() == level).toArray();
-        Adversario[] adversarios = Adversarioss.getAdversariosPorLevel(level);
-        String[] adversariosNomes = Arrays.stream(adversarios).map(Treinador::toString).toArray(String[]::new);
+    public static Adversario adversario(Scanner sc, int nivel) {
+        Adversarios[] adversarios = Adversarios.values();
+
+        List<Adversarios> adversariosList = new ArrayList<>();
+        for (Adversarios adversario : adversarios) {
+            if (adversario.getNivel() == nivel) {
+                adversariosList.add(adversario);
+            }
+        }
+
+        String[] adversariosNomes = adversariosList.stream().map(Adversarios::toString).toArray(String[]::new);
 
         int escolha = Criar.escolhaUmaOpcao(sc, "ADVERSÁRIO", "Escolha um adversário:", adversariosNomes);
 
-        return adversarios[escolha - 1];
+        Adversarios adversario = adversariosList.get(escolha - 1);
+        return Instanciar.adversario(adversario);
     }
 
     public static Ataque ataque(Scanner sc, Pokemon pokemon) {
@@ -92,15 +99,6 @@ public class Escolher {
 
         treinador.definirPokemonBatalha(indicePokemonsVivos.get(indice));
         Criar.divisoriaEmbrulho(String.format("%s escolheu %s", treinador.getNome(), treinador.getPokemonAtual().getNome()));
-    }
-
-    private static Integer selecionarIndicePokemon(Scanner sc, Jogador jogador) {
-        Pokemon[] pokemons = jogador.getPokemons();
-        String[] pokemonsNomes = Arrays.stream(pokemons).map(Pokemon::getNome).toArray(String[]::new);
-
-        int escolha = Criar.escolhaUmaOpcao(sc, "Escolha um pokemon", pokemonsNomes);
-
-        return escolha - 1;
     }
 
     public static void evoluirPokemon(Scanner sc, Jogador jogador) {

@@ -1,4 +1,4 @@
-package data.enums;
+package data;
 
 public enum Especialidades {
     AGUA("Água"),
@@ -16,8 +16,10 @@ public enum Especialidades {
     static {
         AGUA.resistencia = FOGO;
         AGUA.fraqueza = GRAMA;
+
         FOGO.resistencia = GRAMA;
         FOGO.fraqueza = AGUA;
+
         GRAMA.resistencia = AGUA;
         GRAMA.fraqueza = FOGO;
     }
