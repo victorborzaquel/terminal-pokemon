@@ -38,8 +38,15 @@ public class Criar {
     }
 
     public static Integer escolhaUmaOpcao(Scanner sc, String titulo, String[] opcoes) {
-        String subtitulo = "Escolha uma opção:";
+        String subtitulo = "Escolha uma opção";
         return escolhaUmaOpcao(sc, titulo, subtitulo, opcoes);
+    }
+
+    public static Integer escolhaUmaOpcao(Scanner sc, String titulo, List<String> opcoes) {
+        String subtitulo = "Escolha uma opção";
+        String[] opcoesArray = opcoes.stream().map(String::valueOf).toArray(String[]::new);
+
+        return escolhaUmaOpcao(sc, titulo, subtitulo, opcoesArray);
     }
 
     public static Integer escolhaUmaOpcao(Scanner sc, String titulo, String subtitulo, String[] opcoes) {

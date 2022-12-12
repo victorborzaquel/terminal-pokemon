@@ -31,7 +31,6 @@ public class Jornada {
                 }
             }
 
-            Criar.divisoriaEmbrulho("Você subiu de nível!");
             Criar.divisoriaEmbrulho("Você está no nível " + nivel);
 
             if (jogador.temPedraEvolucao()) {
@@ -55,8 +54,15 @@ public class Jornada {
                 return;
             }
 
+
             jogador.adicionarPedraEvolucao();
+            jogador.restaurarRevive();
             nivel++;
+            Criar.divisoriaEmbrulho("PARABENS",
+                    "Você subiu de nível!",
+                    "Ganhou uma pedra de evolução!",
+                    "Seu revive foi restaurado!"
+            );
         }
     }
 }

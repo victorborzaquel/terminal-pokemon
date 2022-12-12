@@ -11,6 +11,33 @@ import java.util.*;
 
 public class Escolher {
 
+    public static void pokemonReviver(Scanner sc, Jogador jogador) {
+        if (!jogador.temPokemonMorto()) {
+            throw new RuntimeException("O treinador não tem pokemons mortos");
+        }
+        Pokemon[] pokemons = jogador.getPokemons();
+        List<Integer> indicePokemonsMortos = new ArrayList<>();
+
+        for (int i = 0; i < pokemons.length; i++) {
+            if (pokemons[i].estaMorto()) {
+                indicePokemonsMortos.add(i);
+            }
+        }
+        String[] pokemonsNomes = indicePokemonsMortos.stream().map(i -> pokemons[i].getNome()).toArray(String[]::new);
+
+        int escolhaPokemon = Criar.escolhaUmaOpcao(sc, "Escolha um pokemon para reviver", pokemonsNomes);
+        int indicePokemon = indicePokemonsMortos.get(escolhaPokemon - 1);
+
+        jogador.usarRevive(indicePokemon);
+
+        Pokemon pokemon = pokemons[indicePokemon];
+        String pokemonNome = pokemon.getNome();
+        Integer pokemonVida = pokemon.getVida();
+        String mensagem = String.format("Seu pokemon %s reviveu e está com %d de vida!", pokemonNome, pokemonVida);
+
+        Criar.divisoriaEmbrulho(mensagem);
+    }
+
     public static Adversario adversario(Scanner sc, int nivel) {
         Adversarios[] adversarios = Adversarios.values();
 
@@ -74,7 +101,7 @@ public class Escolher {
 
         String[] pokemonsNomes = indicePokemonsVivos.stream().map(i -> pokemons[i].toString()).toArray(String[]::new);
 
-        int escolha = Criar.escolhaUmaOpcao(sc, "Escolha um pokemon", pokemonsNomes);
+        int escolha = Criar.escolhaUmaOpcao(sc, "Escolher Pokemon","Escolha um pokemon",  pokemonsNomes);
 
         int indice = indicePokemonsVivos.get(escolha - 1);
 

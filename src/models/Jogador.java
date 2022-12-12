@@ -5,6 +5,7 @@ import utils.Instanciar;
 
 public class Jogador extends Treinador {
     private Integer pedraEvolucao;
+    private Boolean revive;
 
     public Jogador(String nome) {
         super(nome, new Pokemon[]{
@@ -12,7 +13,28 @@ public class Jogador extends Treinador {
                 Instanciar.pokemon(Pokemons.BULBASSAURO),
                 Instanciar.pokemon(Pokemons.BULBASSAURO)
         });
-        this.pedraEvolucao = 1;
+        this.pedraEvolucao = 0;
+        this.revive = true;
+    }
+
+    public void restaurarRevive() {
+        revive = true;
+    }
+
+    public Boolean temRevive() {
+        return revive;
+    }
+
+    public void usarRevive(Integer indice) {
+        if (!revive) {
+            throw new RuntimeException("Você não possui pedras de evolução!");
+        }
+        if (!pokemons[indice].estaMorto()) {
+            throw new RuntimeException("Este pokemon não está morto!");
+        }
+
+        pokemons[indice].reviver();
+        revive = false;
     }
 
     public void adicionarPedraEvolucao() {

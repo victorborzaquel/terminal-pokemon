@@ -19,6 +19,14 @@ public class Pokemon {
         this.vida = vidaMaxima;
     }
 
+    public void reviver() {
+        if (vida != 0) {
+            throw new RuntimeException("Não é possível reviver um Pokémon vivo");
+        }
+
+        vida = (int) (vidaMaxima * 0.7);
+    }
+
     public Integer receberDano(Ataque ataque) {
         int danoBase = ataque.getDano();
         Especialidades fraquese = especialidade.getFraqueza();

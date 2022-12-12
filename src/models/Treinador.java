@@ -1,5 +1,10 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+
 public abstract class Treinador {
     private final String nome;
     protected final Pokemon[] pokemons;
@@ -12,10 +17,6 @@ public abstract class Treinador {
 
     public void definirPokemonBatalha(Integer indice) {
         indicePokemonAtual = indice;
-    }
-
-    public Pokemon getPokemon(Integer indice) {
-        return this.pokemons[indice];
     }
 
     public Pokemon[] getPokemons() {
@@ -36,6 +37,9 @@ public abstract class Treinador {
         return pokemons[indicePokemonAtual];
     }
 
+    public Integer getIndicePokemonAtual() {
+        return indicePokemonAtual;
+    }
     public Boolean pokemonAtualEstaMorto() {
         return pokemons[indicePokemonAtual].estaMorto();
     }
@@ -47,6 +51,27 @@ public abstract class Treinador {
             }
         }
         return true;
+    }
+
+    public Boolean temPokemonMorto() {
+        for (Pokemon pokemon : pokemons) {
+            if (pokemon.estaMorto()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public List<Pokemon> getPokemonsMortos() {
+        List<Pokemon> pokemonsMortos = new ArrayList<>();
+
+        for (Pokemon pokemon : pokemons) {
+            if (pokemon.estaMorto()) {
+                pokemonsMortos.add(pokemon);
+            }
+        }
+
+        return pokemonsMortos;
     }
 
     @Override

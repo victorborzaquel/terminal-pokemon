@@ -17,8 +17,6 @@ public class Partida {
         Escolher.pokemon(adversario);
 
         while (true) {
-            Batalha batalha = new Batalha();
-
             if (jogador.pokemonAtualEstaMorto()) {
                 Escolher.pokemon(sc, jogador);
             }
@@ -27,7 +25,15 @@ public class Partida {
                 Escolher.pokemon(adversario);
             }
 
-            batalha.iniciar(sc, jogador, adversario);
+            new Batalha().iniciar(sc, jogador, adversario);
+
+            if (jogador.temPokemonMorto() && jogador.temRevive()) {
+                int escolha = Criar.escolhaUmaOpcao(sc, "Você deseja reviver seu pokemon?", new String[]{"Reviver", "Não"});
+
+                if (escolha == 1) {
+                    Escolher.pokemonReviver(sc, jogador);
+                }
+            }
 
             if (adversario.estaMorto()) {
                 perdeu = false;
