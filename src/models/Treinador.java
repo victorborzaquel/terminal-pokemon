@@ -1,18 +1,21 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public abstract class Treinador {
-    private final String nome;
+    protected final String nome;
     protected final Pokemon[] pokemons;
     protected Integer indicePokemonAtual;
+    protected Integer nivel;
 
-    protected Treinador(String nome, Pokemon[] pokemons) {
+    protected Treinador(String nome, Integer nivel, Pokemon... pokemons) {
         this.nome = nome;
+        this.nivel = nivel;
         this.pokemons = pokemons;
+    }
+
+    public Integer getNivel() {
+        return nivel;
     }
 
     public void definirPokemonBatalha(Integer indice) {
@@ -37,16 +40,16 @@ public abstract class Treinador {
         return pokemons[indicePokemonAtual];
     }
 
-    public Integer getIndicePokemonAtual() {
-        return indicePokemonAtual;
-    }
     public Boolean pokemonAtualEstaMorto() {
         return pokemons[indicePokemonAtual].estaMorto();
+    }
+    public Boolean pokemonAtualEstaVivo() {
+        return !pokemonAtualEstaMorto();
     }
 
     public Boolean estaMorto() {
         for (Pokemon pokemon : pokemons) {
-            if (!pokemon.estaMorto()) {
+            if (pokemon.estaVivo()) {
                 return false;
             }
         }
@@ -62,12 +65,12 @@ public abstract class Treinador {
         return false;
     }
 
-    public List<Pokemon> getPokemonsMortos() {
-        List<Pokemon> pokemonsMortos = new ArrayList<>();
+    public Map<Integer, Pokemon> getPokemonsMortos() {
+        Map<Integer, Pokemon> pokemonsMortos = new HashMap<>();
 
-        for (Pokemon pokemon : pokemons) {
-            if (pokemon.estaMorto()) {
-                pokemonsMortos.add(pokemon);
+        for (int i = 0; i < pokemons.length; i++) {
+            if (pokemons[i].estaMorto()) {
+                pokemonsMortos.put(i, pokemons[i]);
             }
         }
 

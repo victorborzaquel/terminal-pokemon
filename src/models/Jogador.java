@@ -1,18 +1,13 @@
 package models;
 
-import data.Pokemons;
-import utils.Instanciar;
+import errors.PokemonException;
 
-public class Jogador extends Treinador {
+public final class Jogador extends Treinador {
     private Integer pedraEvolucao;
     private Boolean revive;
 
-    public Jogador(String nome) {
-        super(nome, new Pokemon[]{
-                Instanciar.pokemon(Pokemons.BULBASSAURO),
-                Instanciar.pokemon(Pokemons.BULBASSAURO),
-                Instanciar.pokemon(Pokemons.BULBASSAURO)
-        });
+    public Jogador(String nome, Integer nivel, Pokemon... pokemons) {
+        super(nome, nivel, pokemons);
         this.pedraEvolucao = 0;
         this.revive = true;
     }
@@ -25,11 +20,11 @@ public class Jogador extends Treinador {
         return revive;
     }
 
-    public void usarRevive(Integer indice) {
+    public void usarRevive(Integer indice) throws PokemonException {
         if (!revive) {
             throw new RuntimeException("Você não possui pedras de evolução!");
         }
-        if (!pokemons[indice].estaMorto()) {
+        if (pokemons[indice].estaVivo()) {
             throw new RuntimeException("Este pokemon não está morto!");
         }
 
@@ -46,7 +41,7 @@ public class Jogador extends Treinador {
             throw new RuntimeException("Você não possui pedras de evolução!");
         }
 
-        Pokemon evolucao = pokemons[indice].getEvolucao();
+        final Pokemon evolucao = pokemons[indice].getEvolucao();
 
         if (evolucao == null) {
             throw new RuntimeException("Esse pokemon não pode evoluir!");
@@ -58,5 +53,9 @@ public class Jogador extends Treinador {
 
     public Boolean temPedraEvolucao() {
         return pedraEvolucao > 0;
+    }
+
+    public void evoluir() {
+        nivel++;
     }
 }

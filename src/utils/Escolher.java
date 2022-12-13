@@ -1,5 +1,7 @@
 package utils;
 
+import data.Geracoes;
+import errors.SemPokemonsException;
 import models.Jogador;
 import data.Adversarios;
 import models.Adversario;
@@ -9,59 +11,69 @@ import models.Treinador;
 
 import java.util.*;
 
-public class Escolher {
+public final class Escolher {
 
-    public static void pokemonReviver(Scanner sc, Jogador jogador) {
-        if (!jogador.temPokemonMorto()) {
-            throw new RuntimeException("O treinador não tem pokemons mortos");
+    public static void reviverPokemon(Scanner sc, Jogador jogador) {
+        final String[] OPCOES = {"Reviver", "Não"};
+        final String TITULO = "Deseja reviver um pokemon?";
+        final int escolha = Imprimir.escolhaUmaOpcao(sc, TITULO, OPCOES);
+
+        if (escolha == 2) {
+            return;
         }
-        Pokemon[] pokemons = jogador.getPokemons();
-        List<Integer> indicePokemonsMortos = new ArrayList<>();
 
-        for (int i = 0; i < pokemons.length; i++) {
-            if (pokemons[i].estaMorto()) {
-                indicePokemonsMortos.add(i);
-            }
+        try {
+            PokemonUtils.reviver(sc, jogador);
+        } catch (SemPokemonsException e) {
+            Imprimir.divisoriaEmbrulho(e.getMessage());
         }
-        String[] pokemonsNomes = indicePokemonsMortos.stream().map(i -> pokemons[i].getNome()).toArray(String[]::new);
-
-        int escolhaPokemon = Criar.escolhaUmaOpcao(sc, "Escolha um pokemon para reviver", pokemonsNomes);
-        int indicePokemon = indicePokemonsMortos.get(escolhaPokemon - 1);
-
-        jogador.usarRevive(indicePokemon);
-
-        Pokemon pokemon = pokemons[indicePokemon];
-        String pokemonNome = pokemon.getNome();
-        Integer pokemonVida = pokemon.getVida();
-        String mensagem = String.format("Seu pokemon %s reviveu e está com %d de vida!", pokemonNome, pokemonVida);
-
-        Criar.divisoriaEmbrulho(mensagem);
     }
 
-    public static Adversario adversario(Scanner sc, int nivel) {
-        Adversarios[] adversarios = Adversarios.values();
+    public static Boolean abandonar(Scanner sc) {
+        Imprimir.divisoriaEmbrulho("Quer continuar sua jornada?");
 
-        List<Adversarios> adversariosList = new ArrayList<>();
-        for (Adversarios adversario : adversarios) {
-            if (adversario.getNivel() == nivel) {
-                adversariosList.add(adversario);
-            }
+        final String[] OPCOES = {"Continuar", "Desistir"};
+        final String TITULO = "Jornada";
+        final Integer escolha = Imprimir.escolhaUmaOpcao(sc, TITULO, OPCOES);
+
+        if (escolha == 2) {
+            System.out.println("Você abandonou o Jogo!");
+            return true;
         }
 
-        String[] adversariosNomes = adversariosList.stream().map(Adversarios::toString).toArray(String[]::new);
+        return false;
+    }
 
-        int escolha = Criar.escolhaUmaOpcao(sc, "ADVERSÁRIO", "Escolha um adversário:", adversariosNomes);
+    public static Adversario adversario(Scanner sc, Jogador jogador) {
+        final Adversarios[] adversarios = Arrays
+                .stream(Adversarios.values())
+                .filter(adversario -> adversario.getNivel() == jogador.getNivel())
+                .toArray(Adversarios[]::new);
 
-        Adversarios adversario = adversariosList.get(escolha - 1);
-        return Instanciar.adversario(adversario);
+        final String[] adversariosNomes = Arrays
+                .stream(adversarios)
+                .map(Adversarios::toString)
+                .toArray(String[]::new);
+
+        final String TITULO = "ADVERSÁRIO";
+        final String SUBTITULO = "Escolha um adversário";
+        final int escolha = Imprimir.escolhaUmaOpcao(sc, TITULO, SUBTITULO, adversariosNomes);
+
+        return Instanciar.adversario(adversarios[escolha - 1]);
     }
 
     public static Ataque ataque(Scanner sc, Pokemon pokemon) {
-        Ataque[] ataques = pokemon.getAtaques();
-        String[] ataquesNomes = Arrays.stream(ataques).map(Ataque::toString).toArray(String[]::new);
+        final Ataque[] ataques = pokemon.getAtaques();
+        final String[] ataquesNomes = Arrays
+                .stream(ataques)
+                .map(Ataque::toString)
+                .toArray(String[]::new);
 
-        int escolha = Criar.escolhaUmaOpcao(sc, "ATACAR", "Escolha um ataque", ataquesNomes);
-        Ataque ataque = ataques[escolha - 1];
+
+        final String TITULO = "ATACAR";
+        final String SUBTITULO = "Escolha um ataque";
+        final int escolha = Imprimir.escolhaUmaOpcao(sc, TITULO, SUBTITULO, ataquesNomes);
+        final Ataque ataque = ataques[escolha - 1];
 
         System.out.printf("%s usou %s\n", pokemon.getNome(), ataque.getNome());
 
@@ -69,41 +81,62 @@ public class Escolher {
     }
 
     public static Ataque ataque(Pokemon pokemon) {
-        Ataque[] ataques = pokemon.getAtaques();
-        Ataque ataque = ataques[Escolher.aleatorio(0, ataques.length - 1)];
+        final Ataque[] ataques = pokemon.getAtaques();
+        final Ataque ataque = ataques[Escolher.aleatorio(0, ataques.length - 1)];
 
         System.out.printf("%s usou %s\n", pokemon.getNome(), ataque.getNome());
+
         return ataque;
     }
 
-    public static Jogador jogador(Scanner sc) {
+    public static Jogador jogador(Scanner sc, Geracoes geracao) {
         System.out.print("Digite o seu nome: ");
         sc.nextLine();
-        String nome = sc.nextLine();
-        Console.limpar();
-        return new Jogador(nome);
+        final String nome = sc.nextLine();
+        Imprimir.limparConsole();
+
+        return Instanciar.jogador(nome, geracao);
     }
 
-    public static void pokemon(Scanner sc, Treinador treinador) {
+    public static Geracoes geracao(Scanner sc) {
+        final Geracoes[] geracoes = Geracoes.values();
+        final String[] geracoesNomes = Arrays
+                .stream(geracoes)
+                .map(Geracoes::getNome)
+                .toArray(String[]::new);
+
+        final String TITULO = "GERAÇÃO";
+        final String SUBTITULO = "Escolha uma geração";
+        final int escolha = Imprimir.escolhaUmaOpcao(sc, TITULO, SUBTITULO, geracoesNomes);
+
+        return geracoes[escolha - 1];
+    }
+
+    public static void pokemon(Scanner sc, Treinador treinador) throws SemPokemonsException {
         if (treinador.estaMorto()) {
-            return;
+            throw new SemPokemonsException("Você não tem mais pokemons!");
         }
 
-        Pokemon[] pokemons = treinador.getPokemons();
+        final Pokemon[] pokemons = treinador.getPokemons();
 
-        List<Integer> indicePokemonsVivos = new ArrayList<>();
+        final List<Integer> indicePokemonsVivos = new ArrayList<>();
 
         for (int i = 0; i < pokemons.length; i++) {
-            if (!pokemons[i].estaMorto()) {
+            if (pokemons[i].estaVivo()) {
                 indicePokemonsVivos.add(i);
             }
         }
 
-        String[] pokemonsNomes = indicePokemonsVivos.stream().map(i -> pokemons[i].toString()).toArray(String[]::new);
+        final String[] pokemonsNomes = indicePokemonsVivos
+                .stream()
+                .map(i -> pokemons[i].toString())
+                .toArray(String[]::new);
 
-        int escolha = Criar.escolhaUmaOpcao(sc, "Escolher Pokemon","Escolha um pokemon",  pokemonsNomes);
+        final String TITULO = "Escolher Pokemon";
+        final String SUBTITULO = "Escolha um pokemon";
+        final int escolha = Imprimir.escolhaUmaOpcao(sc, TITULO, SUBTITULO, pokemonsNomes);
 
-        int indice = indicePokemonsVivos.get(escolha - 1);
+        final int indice = indicePokemonsVivos.get(escolha - 1);
 
         treinador.definirPokemonBatalha(indice);
     }
@@ -113,8 +146,8 @@ public class Escolher {
             return;
         }
 
-        Pokemon[] pokemons = treinador.getPokemons();
-        List<Integer> indicePokemonsVivos = new ArrayList<>();
+        final Pokemon[] pokemons = treinador.getPokemons();
+        final List<Integer> indicePokemonsVivos = new ArrayList<>();
 
         for (int i = 0; i < pokemons.length; i++) {
             if (!pokemons[i].estaMorto()) {
@@ -122,44 +155,53 @@ public class Escolher {
             }
         }
 
-        int indice = aleatorio(0, indicePokemonsVivos.size() - 1);
+        final int indice = aleatorio(0, indicePokemonsVivos.size() - 1);
 
         treinador.definirPokemonBatalha(indicePokemonsVivos.get(indice));
-        Criar.divisoriaEmbrulho(String.format("%s escolheu %s", treinador.getNome(), treinador.getPokemonAtual().getNome()));
+        Imprimir.divisoriaEmbrulho(String.format("%s escolheu %s", treinador.getNome(), treinador.getPokemonAtual().getNome()));
     }
 
     public static void evoluirPokemon(Scanner sc, Jogador jogador) {
-        String subtitulo = "Você tem uma pedra de evolução!\nDeseja evoluir seu pokemon?";
-        int escolha = Criar.escolhaUmaOpcao(sc, "Evoluir", subtitulo, new String[]{"Sim", "Não"});
+        final String TITULO = "Evoluir";
+        final String SUBTITULO = "Você tem uma pedra de evolução!\nDeseja evoluir seu pokemon?";
+        final String[] OPCOES = {"Sim", "Não"};
+        final int escolha = Imprimir.escolhaUmaOpcao(sc, TITULO, SUBTITULO, OPCOES);
 
         switch (escolha) {
-            case 1 -> {
-                Pokemon[] pokemons = jogador.getPokemons();
-                List<Integer> indicePokemonsVivos = new ArrayList<>();
-
-                for (int i = 0; i < pokemons.length; i++) {
-                    if (pokemons[i].getEvolucao() != null) {
-                        indicePokemonsVivos.add(i);
-                    }
-                }
-                String[] pokemonsNomes = indicePokemonsVivos.stream().map(i -> pokemons[i].getNome()).toArray(String[]::new);
-
-                int escolhaPokemon = Criar.escolhaUmaOpcao(sc, "Escolha um pokemon", pokemonsNomes);
-                int indicePokemon = indicePokemonsVivos.get(escolhaPokemon - 1);
-
-                Pokemon pokemon = pokemons[indicePokemon];
-
-                String pokemonNome = pokemon.getNome();
-                String evolucaoNome = pokemon.getEvolucao().getNome();
-                String mensagem = String.format("Seu pokemon %s evoluiu para %s!", pokemonNome, evolucaoNome);
-
-                jogador.evoluirPokemon(indicePokemon);
-                Criar.divisoriaEmbrulho(mensagem);
-            }
+            case 1 -> evoluir(sc, jogador);
             case 2 -> {
             }
-            default -> Criar.divisoriaEmbrulho("Opção inválida!");
+            default -> Imprimir.divisoriaEmbrulho("Opção inválida!");
         }
+    }
+
+    private static void evoluir(Scanner sc, Jogador jogador) {
+        final Pokemon[] pokemons = jogador.getPokemons();
+        final List<Integer> indicePokemonsVivos = new ArrayList<>();
+
+        for (int i = 0; i < pokemons.length; i++) {
+            if (pokemons[i].getEvolucao() != null) {
+                indicePokemonsVivos.add(i);
+            }
+        }
+
+        final String[] pokemonsNomes = indicePokemonsVivos
+                .stream()
+                .map(i -> pokemons[i].getNome())
+                .toArray(String[]::new);
+
+
+        final int escolhaPokemon = Imprimir.escolhaUmaOpcao(sc, "Escolha um pokemon", pokemonsNomes);
+        final int indicePokemon = indicePokemonsVivos.get(escolhaPokemon - 1);
+
+        final  Pokemon pokemon = pokemons[indicePokemon];
+
+        final String pokemonNome = pokemon.getNome();
+        final String evolucaoNome = pokemon.getEvolucao().getNome();
+        final String mensagem = String.format("Seu pokemon %s evoluiu para %s!", pokemonNome, evolucaoNome);
+
+        jogador.evoluirPokemon(indicePokemon);
+        Imprimir.divisoriaEmbrulho(mensagem);
     }
 
     public static Integer aleatorio(int min, int max) {

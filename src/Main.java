@@ -1,17 +1,14 @@
-import services.Menu;
-import utils.Console;
-import utils.Criar;
+import services.menus.Menu;
+import utils.Dialogo;
 
 import java.util.Scanner;
 
-public class Main {
+public final class Main {
     public static void main(String[] args) {
+        Dialogo.boasVindas();
+
         Scanner sc = new Scanner(System.in);
-        Console.limpar();
-
-        Criar.divisoriaEmbrulho("Bem vindo ao jogo de pokemons!");
-        Menu.inicial(sc);
-
+        Menu.abrir(sc);
         sc.close();
     }
 }

@@ -3,12 +3,12 @@ package utils;
 import java.util.List;
 import java.util.Scanner;
 
-public class Criar {
+public final class Imprimir {
     private static final Integer TAMANHO = 40;
 
     public static void divisoria(String texto) {
-        int linha = (TAMANHO - texto.length()) / 2;
-        String divisoria = String.format("%s%s%s", "-".repeat(linha), texto, "-".repeat(linha));
+        final int linha = (TAMANHO - texto.length()) / 2;
+        final String divisoria = String.format("%s%s%s", "-".repeat(linha), texto, "-".repeat(linha));
 
         System.out.println(divisoria);
     }
@@ -37,34 +37,36 @@ public class Criar {
         divisoria();
     }
 
+    public static Integer escolhaUmaOpcao(Scanner sc, String titulo, String[] opcoes, String... restOpcoes) {
+        final String[] todasOpcoes = new String[opcoes.length + restOpcoes.length];
+        System.arraycopy(opcoes, 0, todasOpcoes, 0, opcoes.length);
+        System.arraycopy(restOpcoes, 0, todasOpcoes, opcoes.length, restOpcoes.length);
+
+        return escolhaUmaOpcao(sc, titulo, SUBTITULO_PADRAO, todasOpcoes);
+    }
+
     public static Integer escolhaUmaOpcao(Scanner sc, String titulo, String[] opcoes) {
-        String subtitulo = "Escolha uma opção";
-        return escolhaUmaOpcao(sc, titulo, subtitulo, opcoes);
+        return escolhaUmaOpcao(sc, titulo, SUBTITULO_PADRAO, opcoes);
     }
 
-    public static Integer escolhaUmaOpcao(Scanner sc, String titulo, List<String> opcoes) {
-        String subtitulo = "Escolha uma opção";
-        String[] opcoesArray = opcoes.stream().map(String::valueOf).toArray(String[]::new);
-
-        return escolhaUmaOpcao(sc, titulo, subtitulo, opcoesArray);
-    }
+    private static final String SUBTITULO_PADRAO = "Escolha uma opção";
 
     public static Integer escolhaUmaOpcao(Scanner sc, String titulo, String subtitulo, String[] opcoes) {
-        Criar.divisoria(titulo.toUpperCase());
+        Imprimir.divisoria(titulo.toUpperCase());
         System.out.println(subtitulo);
-        Criar.divisoria();
+        Imprimir.divisoria();
 
         for (int i = 0; i < opcoes.length; i++) {
             System.out.printf("%d - %s\n", i + 1, opcoes[i]);
         }
 
-        Criar.divisoria();
+        Imprimir.divisoria();
         System.out.print("Escolha: ");
-        int escolha = sc.nextInt();
-        Console.limpar();
+        final int escolha = sc.nextInt();
+        Imprimir.limparConsole();
 
         if (escolha > opcoes.length || escolha <= 0) {
-            Criar.opcaoInvalida();
+            Imprimir.opcaoInvalida();
             return escolhaUmaOpcao(sc, titulo, subtitulo, opcoes);
         }
 
@@ -73,5 +75,11 @@ public class Criar {
 
     public static void opcaoInvalida() {
         System.out.println("Opção inválida!");
+    }
+
+    public static void limparConsole() {
+        for (int i = 0; i < 40; i++) {
+            System.out.println();
+        }
     }
 }

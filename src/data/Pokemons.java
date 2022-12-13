@@ -1,6 +1,7 @@
 package data;
 
 public enum Pokemons {
+    // Jogador — Geração 1
     CHARMANDER("Charmander", Especialidades.FOGO, 90, Ataques.FIRE_FANG, Ataques.FIRE_FANG, Ataques.FIRE_FANG),
     CHARMELEON("Charmeleon", Especialidades.FOGO, 120, Ataques.FIRE_FANG, Ataques.FIRE_FANG, Ataques.FIRE_FANG),
     CHARIZARD("Charizard", Especialidades.FOGO, 150, Ataques.FIRE_FANG, Ataques.FIRE_FANG, Ataques.FIRE_FANG),
@@ -11,7 +12,17 @@ public enum Pokemons {
 
     BULBASSAURO("Bulbassauro", Especialidades.GRAMA, 110, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF),
     IVYSAURO("Ivysauro", Especialidades.GRAMA, 150, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF),
-    VENUSAURO("Venusaur", Especialidades.GRAMA, 170, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF);
+    VENUSAURO("Venusaur", Especialidades.GRAMA, 170, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF),
+
+    // Jogador — Geração 2
+    CYNDAQUIL("CYNDAQUIL", Especialidades.GRAMA, 110, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF),
+    TOTODILE("TOTODILE", Especialidades.GRAMA, 150, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF),
+    CHICORITA("CHICORITA", Especialidades.GRAMA, 170, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF),
+
+    // Jogador — Geração 3
+    TORCHIC("TORCHIC", Especialidades.GRAMA, 110, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF),
+    MUDKIP("MUDKIP", Especialidades.GRAMA, 150, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF),
+    TREECKO("TREECKO", Especialidades.GRAMA, 170, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF);
 
     private final String nome;
     private final Especialidades especialidade;

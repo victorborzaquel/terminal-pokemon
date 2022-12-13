@@ -3,7 +3,7 @@ package models;
 import data.Especialidades;
 import utils.Escolher;
 
-public class Ataque {
+public final class Ataque {
     private final String nome;
     private final Especialidades especialidade;
     private final Integer danoMinimo;

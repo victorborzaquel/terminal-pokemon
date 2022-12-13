@@ -1,8 +1,9 @@
 package models;
 
 import data.Especialidades;
+import errors.PokemonException;
 
-public class Pokemon {
+public final class Pokemon {
     private final String nome;
     private final Especialidades especialidade;
     private final Pokemon evolucao;
@@ -19,28 +20,27 @@ public class Pokemon {
         this.vida = vidaMaxima;
     }
 
-    public void reviver() {
+    public void reviver() throws PokemonException {
         if (vida != 0) {
-            throw new RuntimeException("Não é possível reviver um Pokémon vivo");
+            throw new PokemonException("Não é possível reviver um Pokémon vivo");
         }
 
         vida = (int) (vidaMaxima * 0.7);
     }
 
     public Integer receberDano(Ataque ataque) {
-        int danoBase = ataque.getDano();
-        Especialidades fraquese = especialidade.getFraqueza();
-        Especialidades resistencia = especialidade.getResistencia();
+        final int danoBase = ataque.getDano();
+        final Especialidades fraquese = especialidade.getFraqueza();
+        final Especialidades resistencia = especialidade.getResistencia();
 
         double multiplicador = 1;
-
         if (ataque.getEspecialidade() == fraquese) {
             multiplicador = 2;
         } else if (ataque.getEspecialidade() == resistencia) {
             multiplicador = 0.5;
         }
 
-        int dano = (int) (danoBase * multiplicador);
+        final int dano = (int) (danoBase * multiplicador);
 
         this.vida = Math.max(0, this.vida - dano);
 
@@ -65,6 +65,10 @@ public class Pokemon {
 
     public Boolean estaMorto() {
         return vida <= 0;
+    }
+
+    public Boolean estaVivo() {
+        return vida > 0;
     }
 
     public Pokemon getEvolucao() {
