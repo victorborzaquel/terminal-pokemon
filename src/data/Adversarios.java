@@ -1,10 +1,10 @@
 package data;
 
 public enum Adversarios {
-    MISTY( 1, "Misty", Especialidades.AGUA, "Valoriza a força!", new Pokemons[]{Pokemons.BULBASSAURO,Pokemons.SQUIRTLE,Pokemons.CHARMANDER}),
-    BROCK( 1,"Brock", Especialidades.GRAMA, "Valoriza a força!", new Pokemons[]{Pokemons.BULBASSAURO,Pokemons.SQUIRTLE,Pokemons.CHARMANDER}),
-    ASH(2,"Ash", Especialidades.FOGO, "Valoriza a força!", new Pokemons[]{Pokemons.BULBASSAURO,Pokemons.SQUIRTLE,Pokemons.CHARMANDER}),
-    JOAO(2,"Ash", Especialidades.FOGO, "Valoriza a força!", new Pokemons[]{Pokemons.BULBASSAURO,Pokemons.SQUIRTLE,Pokemons.CHARMANDER});
+    MISTY( 1, "Misty", Especialidades.AGUA, "Valoriza a força!", Pokemons.BULBASSAURO,Pokemons.SQUIRTLE,Pokemons.CHARMANDER),
+    BROCK( 1,"Brock", Especialidades.GRAMA, "Valoriza a força!", Pokemons.BULBASSAURO,Pokemons.SQUIRTLE,Pokemons.CHARMANDER),
+    ASH(2,"Ash", Especialidades.FOGO, "Valoriza a força!", Pokemons.BULBASSAURO,Pokemons.SQUIRTLE,Pokemons.CHARMANDER),
+    JOAO(2,"Ash", Especialidades.FOGO, "Valoriza a força!", Pokemons.BULBASSAURO,Pokemons.SQUIRTLE,Pokemons.CHARMANDER);
 
     private final Integer nivel;
     private final String nome;
@@ -12,7 +12,7 @@ public enum Adversarios {
     private final String frase;
     private final Pokemons[] pokemons;
 
-    Adversarios(Integer nivel, String name, Especialidades especialidade, String frase, Pokemons[] pokemons) {
+    Adversarios(Integer nivel, String name, Especialidades especialidade, String frase, Pokemons... pokemons) {
         this.nivel = nivel;
         this.nome = name;
         this.especialidade = especialidade;

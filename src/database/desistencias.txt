@@ -1,1 +1,2 @@
 Nome: 1, Level: 2, Pokemons: [ Ivyssauro, Squirtle, Charmander ]
+Nome: victor, Level: 2, Pokemons: [ Bulbassauro, Bulbassauro, Bulbassauro ]
