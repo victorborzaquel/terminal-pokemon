@@ -11,37 +11,21 @@ import java.util.Map;
 import java.util.Scanner;
 
 public final class PokemonUtils {
-    static void reviver(Scanner sc, Jogador jogador) throws SemPokemonsException {
+    static void reviver(Jogador jogador, Integer indice) throws SemPokemonsException, PokemonException {
         if (!jogador.temPokemonMorto()) {
             throw new SemPokemonsException("O treinador não tem pokemons mortos");
         }
+        if (!jogador.getPokemonsMortos().containsKey(indice)) {
+            throw new PokemonException("Esse pokemon não está morto");
+        }
 
         final Map<Integer, Pokemon> pokemons = jogador.getPokemonsMortos();
-
-        final String[] pokemonsNomes = pokemons
-                .values()
-                .stream()
-                .map(Pokemon::getNome)
-                .toArray(String[]::new);
 
         final Integer[] pokemonsIndices = pokemons
                 .keySet()
                 .toArray(Integer[]::new);
 
-        final int escolha = Imprimir.escolhaUmaOpcao(sc, "Escolha um pokemon para reviver", pokemonsNomes);
-
-        try {
-            jogador.usarRevive(pokemonsIndices[escolha - 1]);
-        } catch (PokemonException e) {
-            Imprimir.divisoriaEmbrulho(e.getMessage());
-        }
-
-        final Pokemon pokemon = pokemons.get(escolha - 1);
-        final String pokemonNome = pokemon.getNome();
-        final Integer pokemonVida = pokemon.getVida();
-        final String mensagem = String.format("Seu pokemon %s reviveu e está com %d de vida!", pokemonNome, pokemonVida);
-
-        Imprimir.divisoriaEmbrulho(mensagem);
+        jogador.usarRevive(pokemonsIndices[indice]);
     }
 
     public static Integer atacar(Scanner sc, Treinador atacante, Treinador alvo) {

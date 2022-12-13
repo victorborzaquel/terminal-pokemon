@@ -1,6 +1,5 @@
 package services.menus;
 
-import data.MenuOpcoes;
 import services.telas.Jornada;
 import utils.Imprimir;
 
@@ -10,10 +9,10 @@ import java.util.Scanner;
 public final class Menu {
     public static void abrir(Scanner sc) {
         while (true) {
-            final MenuOpcoes[] opcoes = MenuOpcoes.values();
+            final Opcoes[] opcoes = Opcoes.values();
             final String[] titulos = Arrays
                     .stream(opcoes)
-                    .map(MenuOpcoes::getTitulo)
+                    .map(Opcoes::getTitulo)
                     .toArray(String[]::new);
 
             final Integer escolha = Imprimir.escolhaUmaOpcao(sc, "Menu", titulos);

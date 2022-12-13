@@ -20,12 +20,15 @@ public final class Pokemon {
         this.vida = vidaMaxima;
     }
 
-    public void reviver() throws PokemonException {
+    public void curar(Double vidaPorCento) throws PokemonException {
         if (vida != 0) {
             throw new PokemonException("Não é possível reviver um Pokémon vivo");
         }
 
-        vida = (int) (vidaMaxima * 0.7);
+        int vidaRecuperada = (int) (vidaMaxima * vidaPorCento);
+        int novaVida = vida + vidaRecuperada;
+
+        vida = Math.max(vidaMaxima, novaVida);
     }
 
     public Integer receberDano(Ataque ataque) {

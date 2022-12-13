@@ -1,8 +1,0 @@
-Nome: 1, Level: 2, Pokemons: [ Ivyssauro, Squirtle, Charmander ]
-Nome: victor, Level: 2, Pokemons: [ Bulbassauro, Bulbassauro, Bulbassauro ]
-Nome: ddd, Level: 2, Pokemons: [ Bulbassauro, Bulbassauro, Bulbassauro ]
-Nome: 1, Level: 2, Pokemons: [ Optional[CYNDAQUIL, TOTODILE, CHICORITA] ]
-Nome: 1, Level: 2, Pokemons: [ Optional[Bulbassauro, Charmander, Squirtle] ]
-Nome: fff, Level: 2, Pokemons: [ Optional[TORCHIC, MUDKIP, TREECKO] ]
-Nome: 2, Level: 2, Pokemons: [ Optional[CYNDAQUIL, TOTODILE, CHICORITA] ]
-Nome: dd, Level: 2, Pokemons: [ TORCHIC, MUDKIP, TREECKO ]

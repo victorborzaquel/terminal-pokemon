@@ -1,6 +1,8 @@
 package utils;
 
 import data.Geracoes;
+import data.Historicos;
+import errors.PokemonException;
 import errors.SemPokemonsException;
 import models.Jogador;
 import data.Adversarios;
@@ -13,20 +15,63 @@ import java.util.*;
 
 public final class Escolher {
 
+    public static Integer historico(Scanner sc, Historicos[] historicos) {
+        final String[] titulosHistoricos = Arrays
+                .stream(historicos)
+                .map(Historicos::getTitulo)
+                .toArray(String[]::new);
+
+        final Integer escolha = Imprimir.escolhaUmaOpcao(sc, "Histórico", titulosHistoricos, "Voltar");
+
+        if (escolha == titulosHistoricos.length + 1) {
+            return -1;
+        }
+
+        return escolha;
+    }
     public static void reviverPokemon(Scanner sc, Jogador jogador) {
         final String[] OPCOES = {"Reviver", "Não"};
         final String TITULO = "Deseja reviver um pokemon?";
-        final int escolha = Imprimir.escolhaUmaOpcao(sc, TITULO, OPCOES);
+        final int escolhaSair = Imprimir.escolhaUmaOpcao(sc, TITULO, OPCOES);
 
-        if (escolha == 2) {
+        final Pokemon[] pokemons = jogador.getPokemons();
+
+        if (escolhaSair == 2) {
             return;
         }
 
+        int indicePokemon = Escolher.pokemonMorto(sc, jogador) - 1;
+
         try {
-            PokemonUtils.reviver(sc, jogador);
-        } catch (SemPokemonsException e) {
+            PokemonUtils.reviver(jogador, indicePokemon );
+
+            final Pokemon pokemon = pokemons[indicePokemon];
+            final String pokemonNome = pokemon.getNome();
+            final Integer pokemonVida = pokemon.getVida();
+            final String mensagem = String.format("Seu pokemon %s reviveu e está com %d de vida!", pokemonNome, pokemonVida);
+
+            Imprimir.divisoriaEmbrulho(mensagem);
+        } catch (SemPokemonsException | PokemonException e) {
             Imprimir.divisoriaEmbrulho(e.getMessage());
         }
+    }
+
+    public static Integer pokemonMorto(Scanner sc, Jogador jogador) {
+        if (!jogador.temPokemonMorto()) {
+            throw new SemPokemonsException("O treinador não tem pokemons mortos");
+        }
+
+        final Map<Integer, Pokemon> pokemons = jogador.getPokemonsMortos();
+
+        final String[] pokemonsNomes = pokemons
+                .values()
+                .stream()
+                .map(Pokemon::getNome)
+                .toArray(String[]::new);
+
+        final String TITULO = "Escolha um pokemon para reviver";
+
+        return Imprimir.escolhaUmaOpcao(sc, TITULO, pokemonsNomes);
     }
 
     public static Boolean abandonar(Scanner sc) {
@@ -171,7 +216,7 @@ public final class Escolher {
             case 1 -> evoluir(sc, jogador);
             case 2 -> {
             }
-            default -> Imprimir.divisoriaEmbrulho("Opção inválida!");
+            default -> Dialogo.opcaoInvalida();
         }
     }
 

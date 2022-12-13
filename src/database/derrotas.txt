@@ -1,7 +1,0 @@
-Nome: karen, Level: 2, Pokemons: [ Venussauro, Squirtle, Charmander ]
-Nome: victor, Level: 2, Pokemons: [ Venussauro, Squirtle, Charmander ]Nome: 1212, Level: 1, Pokemons: [ Ivyssauro, Squirtle, Charmander ]
-Nome: 1, Level: 3, Pokemons: [ Venussauro, Squirtle, Charmander ]
-Nome: 12, Level: 1, Pokemons: [ Bulbassauro, Bulbassauro, Bulbassauro ]
-Nome: 12, Level: 1, Pokemons: [ Bulbassauro, Bulbassauro, Bulbassauro ]
-Nome: aaa, Level: 1, Pokemons: [ Bulbassauro, Bulbassauro, Bulbassauro ]
-Nome: 1, Level: 1, Pokemons: [ Optional[CYNDAQUIL, TOTODILE, CHICORITA] ]

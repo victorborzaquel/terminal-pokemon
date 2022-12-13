@@ -1,13 +1,13 @@
-package data;
+package services.menus;
 
-public enum MenuOpcoes {
+public enum Opcoes {
     INICIAR_PARTIDA("Iniciar partida"),
     HISTORICO("Histórico"),
     SAIR("Sair");
 
     private final String titulo;
 
-    MenuOpcoes(String titulo) {
+    Opcoes(String titulo) {
         this.titulo = titulo;
     }
 

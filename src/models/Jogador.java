@@ -28,7 +28,7 @@ public final class Jogador extends Treinador {
             throw new RuntimeException("Este pokemon não está morto!");
         }
 
-        pokemons[indice].reviver();
+        pokemons[indice].curar(0.7);
         revive = false;
     }
 

@@ -6,6 +6,10 @@ import models.Pokemon;
 import models.Treinador;
 
 public final class Dialogo {
+
+    public static void opcaoInvalida() {
+        Imprimir.divisoriaEmbrulho("Opção inválida");
+    }
     public static void fraseAdversario(Adversario adversario) {
         Imprimir.divisoriaEmbrulho(String.format("%s: %s\n", adversario.getNome(), adversario.getFrase()));
     }
