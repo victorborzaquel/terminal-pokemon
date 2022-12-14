@@ -29,6 +29,7 @@ public final class Escolher {
 
         return escolha;
     }
+
     public static void reviverPokemon(Scanner sc, Jogador jogador) {
         final String[] OPCOES = {"Reviver", "Não"};
         final String TITULO = "Deseja reviver um pokemon?";
@@ -43,7 +44,7 @@ public final class Escolher {
         int indicePokemon = Escolher.pokemonMorto(sc, jogador) - 1;
 
         try {
-            PokemonUtils.reviver(jogador, indicePokemon );
+            PokemonUtils.reviver(jogador, indicePokemon);
 
             final Pokemon pokemon = pokemons[indicePokemon];
             final String pokemonNome = pokemon.getNome();
@@ -239,7 +240,7 @@ public final class Escolher {
         final int escolhaPokemon = Imprimir.escolhaUmaOpcao(sc, "Escolha um pokemon", pokemonsNomes);
         final int indicePokemon = indicePokemonsVivos.get(escolhaPokemon - 1);
 
-        final  Pokemon pokemon = pokemons[indicePokemon];
+        final Pokemon pokemon = pokemons[indicePokemon];
 
         final String pokemonNome = pokemon.getNome();
         final String evolucaoNome = pokemon.getEvolucao().getNome();

@@ -2,7 +2,7 @@ package models;
 
 import data.Especialidades;
 
-public final class Adversario extends Treinador{
+public final class Adversario extends Treinador {
     private final Especialidades especialidade;
     private final String frase;
 

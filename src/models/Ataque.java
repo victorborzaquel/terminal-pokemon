@@ -8,6 +8,7 @@ public final class Ataque {
     private final Especialidades especialidade;
     private final Integer danoMinimo;
     private final Integer danoMaximo;
+
     public Ataque(String nome, Especialidades especialidade, Integer danoMinimo, Integer danoMaximo) {
         this.nome = nome;
         this.especialidade = especialidade;

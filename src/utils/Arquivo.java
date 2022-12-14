@@ -60,8 +60,7 @@ public final class Arquivo {
 
     private static List<String> reader(Historicos historico) throws
             IOException,
-            NenhumRegistroException
-    {
+            NenhumRegistroException {
         final String diretorio = PATH + historico.getDiretorio();
         final File file = new File(diretorio);
         final FileReader fileReader = new FileReader(file);

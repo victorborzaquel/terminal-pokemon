@@ -36,6 +36,7 @@ public final class PokemonUtils {
 
         return pokemonAlvo.receberDano(ataque);
     }
+
     public static Integer atacar(Treinador atacante, Treinador alvo) {
         final Pokemon pokemonAtacante = atacante.getPokemonAtual();
         final Pokemon pokemonAlvo = alvo.getPokemonAtual();

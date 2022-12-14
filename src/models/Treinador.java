@@ -43,6 +43,7 @@ public abstract class Treinador {
     public Boolean pokemonAtualEstaMorto() {
         return pokemons[indicePokemonAtual].estaMorto();
     }
+
     public Boolean pokemonAtualEstaVivo() {
         return !pokemonAtualEstaMorto();
     }

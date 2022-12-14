@@ -2,8 +2,8 @@ package data;
 
 public enum Historicos {
     VITORIAS("Vitorias", "vitorias.txt"),
-    DERROTAS("Derrotas","derrotas.txt"),
-    DESISTENCIAS("Desistencias","desistencias.txt");
+    DERROTAS("Derrotas", "derrotas.txt"),
+    DESISTENCIAS("Desistencias", "desistencias.txt");
 
     private final String titulo;
     private final String diretorio;
