@@ -1,0 +1,1 @@
+Nome: victor, Level: 1, Pokemons: [ TORCHIC, MUDKIP, TREECKO ]
