@@ -1,7 +1,7 @@
 package models;
 
 import data.Especialidades;
-import utils.Escolher;
+import utils.Escolha;
 
 public final class Ataque {
     private final String nome;
@@ -20,8 +20,8 @@ public final class Ataque {
         return nome;
     }
 
-    public Integer getDano() {
-        return Escolher.aleatorio(danoMinimo, danoMaximo);
+    public int getDano() {
+        return Escolha.aleatorio(danoMinimo, danoMaximo);
     }
 
     public Especialidades getEspecialidade() {

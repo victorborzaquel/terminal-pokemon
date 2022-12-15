@@ -1,5 +1,6 @@
 package utils;
 
+import errors.PedraEvolucaoException;
 import errors.PokemonException;
 import errors.SemPokemonsException;
 import models.Ataque;
@@ -11,7 +12,11 @@ import java.util.Map;
 import java.util.Scanner;
 
 public final class PokemonUtils {
-    static void reviver(Jogador jogador, Integer indice) throws SemPokemonsException, PokemonException {
+    private PokemonUtils() {
+        throw new IllegalStateException("Utility class");
+    }
+
+    static void reviver(Jogador jogador, Integer indice) throws SemPokemonsException, PokemonException, PedraEvolucaoException {
         if (!jogador.temPokemonMorto()) {
             throw new SemPokemonsException("O treinador não tem pokemons mortos");
         }
@@ -32,7 +37,7 @@ public final class PokemonUtils {
         final Pokemon pokemonAtacante = atacante.getPokemonAtual();
         final Pokemon pokemonAlvo = alvo.getPokemonAtual();
 
-        final Ataque ataque = Escolher.ataque(sc, pokemonAtacante);
+        final Ataque ataque = Escolha.ataque(sc, pokemonAtacante);
 
         return pokemonAlvo.receberDano(ataque);
     }
@@ -41,7 +46,7 @@ public final class PokemonUtils {
         final Pokemon pokemonAtacante = atacante.getPokemonAtual();
         final Pokemon pokemonAlvo = alvo.getPokemonAtual();
 
-        final Ataque ataque = Escolher.ataque(pokemonAtacante);
+        final Ataque ataque = Escolha.ataque(pokemonAtacante);
 
         return pokemonAlvo.receberDano(ataque);
     }

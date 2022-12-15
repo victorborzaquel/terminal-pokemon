@@ -6,7 +6,7 @@ public final class Adversario extends Treinador {
     private final Especialidades especialidade;
     private final String frase;
 
-    public Adversario(String nome, Integer nivel, Especialidades especialidade, String frase, Pokemon... pokemons) {
+    public Adversario(String nome, int nivel, Especialidades especialidade, String frase, Pokemon... pokemons) {
         super(nome, nivel, pokemons);
         this.especialidade = especialidade;
         this.frase = frase;

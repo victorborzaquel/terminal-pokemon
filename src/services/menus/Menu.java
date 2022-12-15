@@ -1,12 +1,17 @@
 package services.menus;
 
 import services.telas.Jornada;
-import utils.Imprimir;
+import utils.Imprima;
 
 import java.util.Arrays;
 import java.util.Scanner;
 
 public final class Menu {
+
+    private Menu() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static void abrir(Scanner sc) {
         while (true) {
             final Opcoes[] opcoes = Opcoes.values();
@@ -15,7 +20,7 @@ public final class Menu {
                     .map(Opcoes::getTitulo)
                     .toArray(String[]::new);
 
-            final Integer escolha = Imprimir.escolhaUmaOpcao(sc, "Menu", titulos);
+            final Integer escolha = Imprima.escolhaUmaOpcao(sc, "Menu", titulos);
 
             switch (opcoes[escolha - 1]) {
                 case INICIAR_PARTIDA -> Jornada.iniciar(sc);
@@ -23,7 +28,7 @@ public final class Menu {
                 case SAIR -> {
                     return;
                 }
-                default -> Imprimir.opcaoInvalida();
+                default -> Imprima.opcaoInvalida();
             }
         }
     }

@@ -2,16 +2,21 @@ package services.menus;
 
 import data.Historicos;
 import utils.Arquivo;
-import utils.Escolher;
+import utils.Escolha;
 
 import java.util.Scanner;
 
 public final class Historico {
+
+    private Historico() {
+        throw new IllegalStateException("Utility class");
+    }
+
     static void abrir(Scanner sc) {
         while (true) {
             final Historicos[] historicos = Historicos.values();
 
-            int escolha = Escolher.historico(sc, historicos);
+            int escolha = Escolha.historico(sc, historicos);
 
             if (escolha == -1) {
                 return;

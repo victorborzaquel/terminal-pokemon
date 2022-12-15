@@ -1,5 +1,6 @@
 package models;
 
+import errors.PedraEvolucaoException;
 import errors.PokemonException;
 
 public final class Jogador extends Treinador {
@@ -20,12 +21,12 @@ public final class Jogador extends Treinador {
         return revive;
     }
 
-    public void usarRevive(Integer indice) throws PokemonException {
+    public void usarRevive(Integer indice) throws PokemonException, PedraEvolucaoException {
         if (!revive) {
-            throw new RuntimeException("Você não possui pedras de evolução!");
+            throw new PedraEvolucaoException("Você não possui pedras de evolução!");
         }
         if (pokemons[indice].estaVivo()) {
-            throw new RuntimeException("Este pokemon não está morto!");
+            throw new PokemonException("Este pokemon não está morto!");
         }
 
         pokemons[indice].curar(0.7);
@@ -36,15 +37,15 @@ public final class Jogador extends Treinador {
         pedraEvolucao++;
     }
 
-    public void evoluirPokemon(Integer indice) {
+    public void evoluirPokemon(Integer indice) throws PedraEvolucaoException, PokemonException {
         if (pedraEvolucao <= 0) {
-            throw new RuntimeException("Você não possui pedras de evolução!");
+            throw new PedraEvolucaoException("Você não possui pedras de evolução!");
         }
 
         final Pokemon evolucao = pokemons[indice].getEvolucao();
 
         if (evolucao == null) {
-            throw new RuntimeException("Esse pokemon não pode evoluir!");
+            throw new PokemonException("Esse pokemon não pode evoluir!");
         }
 
         pokemons[indice] = evolucao;
@@ -53,6 +54,10 @@ public final class Jogador extends Treinador {
 
     public Boolean temPedraEvolucao() {
         return pedraEvolucao > 0;
+    }
+
+    public Integer getPedraEvolucao() {
+        return pedraEvolucao;
     }
 
     public void evoluir() {

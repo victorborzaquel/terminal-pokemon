@@ -5,21 +5,26 @@ import models.Jogador;
 import data.Historicos;
 import models.Adversario;
 import utils.Dialogo;
-import utils.Escolher;
+import utils.Escolha;
 import utils.Arquivo;
 
 import java.util.Scanner;
 
 public final class Jornada {
+
+    private Jornada() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static void iniciar(Scanner sc) {
         Dialogo.iniciandoJornada();
 
-        final Geracoes geracao = Escolher.geracao(sc);
-        final Jogador jogador = Escolher.jogador(sc, geracao);
+        final Geracoes geracao = Escolha.geracao(sc);
+        final Jogador jogador = Escolha.jogador(sc, geracao);
 
         while (true) {
             if (jogador.getNivel() > 1) {
-                final Boolean ehAbandono = Escolher.abandonar(sc);
+                final boolean ehAbandono = Escolha.abandonar(sc);
                 if (ehAbandono) {
                     Arquivo.salvar(jogador, Historicos.DESISTENCIAS);
                     return;
@@ -29,10 +34,10 @@ public final class Jornada {
             Dialogo.mostrarNivelJogador(jogador);
 
             if (jogador.temPedraEvolucao()) {
-                Escolher.evoluirPokemon(sc, jogador);
+                Escolha.evoluirPokemon(sc, jogador);
             }
 
-            final Adversario adversario = Escolher.adversario(sc, jogador);
+            final Adversario adversario = Escolha.adversario(sc, jogador);
 
             Partida.iniciar(sc, jogador, adversario);
 

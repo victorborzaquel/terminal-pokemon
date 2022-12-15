@@ -5,16 +5,16 @@ import java.util.*;
 public abstract class Treinador {
     protected final String nome;
     protected final Pokemon[] pokemons;
-    protected Integer indicePokemonAtual;
-    protected Integer nivel;
+    protected int indicePokemonAtual;
+    protected int nivel;
 
-    protected Treinador(String nome, Integer nivel, Pokemon... pokemons) {
+    protected Treinador(String nome, int nivel, Pokemon... pokemons) {
         this.nome = nome;
         this.nivel = nivel;
         this.pokemons = pokemons;
     }
 
-    public Integer getNivel() {
+    public int getNivel() {
         return nivel;
     }
 
@@ -38,6 +38,10 @@ public abstract class Treinador {
 
     public Pokemon getPokemonAtual() {
         return pokemons[indicePokemonAtual];
+    }
+
+    public Integer getIndicePokemonAtual() {
+        return indicePokemonAtual;
     }
 
     public Boolean pokemonAtualEstaMorto() {

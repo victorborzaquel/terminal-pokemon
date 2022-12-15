@@ -11,13 +11,17 @@ import java.util.Arrays;
 import java.util.List;
 
 public final class Arquivo {
+    private Arquivo() {
+        throw new IllegalStateException("Utility class");
+    }
+
     private static final String PATH = "src/database/";
 
     public static void salvar(Jogador jogador, Historicos historico) {
         try {
             writer(jogador, historico);
         } catch (IOException e) {
-            Imprimir.divisoriaEmbrulho("Erro ao salvar historico");
+            Imprima.divisoriaEmbrulho("Erro ao salvar historico");
         }
     }
 
@@ -25,11 +29,11 @@ public final class Arquivo {
         try {
             final List<String> linhas = reader(historico);
 
-            Imprimir.divisoriaEmbrulho(historico.getTitulo(), linhas);
+            Imprima.divisoriaEmbrulho(historico.getTitulo(), linhas);
         } catch (IOException e) {
-            Imprimir.divisoriaEmbrulho("Erro ao ver historico");
+            Imprima.divisoriaEmbrulho("Erro ao ver historico");
         } catch (NenhumRegistroException e) {
-            Imprimir.divisoriaEmbrulho("Nenhum registro encontrado");
+            Imprima.divisoriaEmbrulho("Nenhum registro encontrado");
         }
     }
 
@@ -61,6 +65,7 @@ public final class Arquivo {
     private static List<String> reader(Historicos historico) throws
             IOException,
             NenhumRegistroException {
+
         final String diretorio = PATH + historico.getDiretorio();
         final File file = new File(diretorio);
         final FileReader fileReader = new FileReader(file);
@@ -75,7 +80,7 @@ public final class Arquivo {
         fileReader.close();
         bufferedReader.close();
 
-        if (linhas.size() == 0) {
+        if (linhas.isEmpty()) {
             throw new NenhumRegistroException();
         }
 

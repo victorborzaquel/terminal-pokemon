@@ -3,7 +3,11 @@ package utils;
 import java.util.List;
 import java.util.Scanner;
 
-public final class Imprimir {
+public final class Imprima {
+    private Imprima() {
+        throw new IllegalStateException("Utility class");
+    }
+
     private static final Integer TAMANHO = 40;
 
     public static void divisoria(String texto) {
@@ -52,21 +56,21 @@ public final class Imprimir {
     private static final String SUBTITULO_PADRAO = "Escolha uma opção";
 
     public static Integer escolhaUmaOpcao(Scanner sc, String titulo, String subtitulo, String[] opcoes) {
-        Imprimir.divisoria(titulo.toUpperCase());
+        Imprima.divisoria(titulo.toUpperCase());
         System.out.println(subtitulo);
-        Imprimir.divisoria();
+        Imprima.divisoria();
 
         for (int i = 0; i < opcoes.length; i++) {
             System.out.printf("%d - %s\n", i + 1, opcoes[i]);
         }
 
-        Imprimir.divisoria();
+        Imprima.divisoria();
         System.out.print("Escolha: ");
         final int escolha = sc.nextInt();
-        Imprimir.limparConsole();
+        Imprima.limparConsole();
 
         if (escolha > opcoes.length || escolha <= 0) {
-            Imprimir.opcaoInvalida();
+            Imprima.opcaoInvalida();
             return escolhaUmaOpcao(sc, titulo, subtitulo, opcoes);
         }
 

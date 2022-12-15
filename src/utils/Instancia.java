@@ -8,13 +8,17 @@ import models.Pokemon;
 
 import java.util.Arrays;
 
-public final class Instanciar {
+public final class Instancia {
+    private Instancia() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static Jogador jogador(String nome, Geracoes geracao) {
-        final Integer NIVEL = 1;
+        final int NIVEL = 1;
         final Pokemons[] pokemonsEnum = geracao.getIniciais();
         final Pokemon[] pokemons = Arrays
                 .stream(pokemonsEnum)
-                .map(Instanciar::pokemon)
+                .map(Instancia::pokemon)
                 .toArray(Pokemon[]::new);
 
         return new Jogador(nome, NIVEL, pokemons);
@@ -22,13 +26,13 @@ public final class Instanciar {
 
     public static Adversario adversario(Adversarios adversarioEnum) {
         final String nome = adversarioEnum.getNome();
-        final Integer nivel = adversarioEnum.getNivel();
+        final int nivel = adversarioEnum.getNivel();
         final Especialidades especialidade = adversarioEnum.getEspecialidade();
         final String frase = adversarioEnum.getFrase();
         final Pokemons[] pokemonsEnum = adversarioEnum.getPokemons();
         final Pokemon[] pokemons = Arrays
                 .stream(pokemonsEnum)
-                .map(Instanciar::pokemon)
+                .map(Instancia::pokemon)
                 .toArray(Pokemon[]::new);
 
         return new Adversario(nome, nivel, especialidade, frase, pokemons);
@@ -43,7 +47,7 @@ public final class Instanciar {
         final Ataques[] ataquesEnum = pokemonEnum.getAtaques();
         final Ataque[] ataques = Arrays
                 .stream(ataquesEnum)
-                .map(Instanciar::ataque)
+                .map(Instancia::ataque)
                 .toArray(Ataque[]::new);
 
         return new Pokemon(nome, especialidade, evolucao, vida, ataques);
