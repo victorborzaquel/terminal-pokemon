@@ -1,7 +1,7 @@
 package data;
 
 public enum Geracoes {
-    PRIMEIRA("Primeira Geração", Pokemons.BULBASSAURO, Pokemons.CHARMANDER, Pokemons.SQUIRTLE),
+    PRIMEIRA("Primeira Geração", Pokemons.BULBASAUR, Pokemons.CHARMANDER, Pokemons.SQUIRTLE),
     SEGUNDA("Segunda Geração", Pokemons.CYNDAQUIL, Pokemons.TOTODILE, Pokemons.CHICORITA),
     TERCEIRA("Terceira Geração", Pokemons.TORCHIC, Pokemons.MUDKIP, Pokemons.TREECKO);
 
