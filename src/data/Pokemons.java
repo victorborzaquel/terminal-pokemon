@@ -2,27 +2,24 @@ package data;
 
 public enum Pokemons {
     // Jogador — Geração 1
-    CHARMANDER("Charmander", Especialidades.FOGO, 90, Ataques.FIRE_FANG, Ataques.FIRE_FANG, Ataques.FIRE_FANG),
-    CHARMELEON("Charmeleon", Especialidades.FOGO, 120, Ataques.FIRE_FANG, Ataques.FIRE_FANG, Ataques.FIRE_FANG),
-    CHARIZARD("Charizard", Especialidades.FOGO, 150, Ataques.FIRE_FANG, Ataques.FIRE_FANG, Ataques.FIRE_FANG),
-
-    SQUIRTLE("Squirtle", Especialidades.AGUA, 100, Ataques.WATER_GUN, Ataques.WATER_GUN, Ataques.WATER_GUN),
-    WARTORTLE("Wartortle", Especialidades.AGUA, 130, Ataques.WATER_GUN, Ataques.WATER_GUN, Ataques.WATER_GUN),
-    BLASTOISE("Blastoise", Especialidades.AGUA, 160, Ataques.WATER_GUN, Ataques.WATER_GUN, Ataques.WATER_GUN),
-
-    BULBASSAURO("Bulbassauro", Especialidades.GRAMA, 110, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF),
-    IVYSAURO("Ivysauro", Especialidades.GRAMA, 150, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF),
-    VENUSAURO("Venusaur", Especialidades.GRAMA, 170, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF),
-
+    BULBASAUR (" Bulbasaur ", Especialidades.PLANTA , 45 , Ataques. TACKLE , Ataques. VINE_WHIP , Ataques. RAZOR_LEAF),
+    IVYSAUR (" Ivysaur ", Especialidades.PLANTA , 60 , Ataques. VINE_WHIP , Ataques. RAZOR_LEAF , Ataques. SOLAR_BEAM),
+    VENUSAUR (" Venusaur ", Especialidades.PLANTA , 80 , Ataques. VINE_WHIP , Ataques. RAZOR_LEAF , Ataques. SOLAR_BEAM),
+    CHARMANDER (" Charmander ", Especialidades.FOGO , 39 , Ataques. SCRATCH , Ataques. EMBER , Ataques. SLASH),
+    CHARMELEON (" Charmeleon ", Especialidades.FOGO , 58 , Ataques. EMBER , Ataques.  SLASH , Ataques. FLAMETHROWER),
+    CHARIZARD (" Charizard ", Especialidades.FOGO , 78 , Ataques. EMBER , Ataques.  SLASH , Ataques. FLAMETHROWER),
+    SQUIRTLE (" Squirtle ", Especialidades.AGUA , 44 , Ataques. TACKLE , Ataques. WATER_GUN , Ataques. BITE),
+    WARTORTLE (" Wartortle ", Especialidades.AGUA , 59 , Ataques. BUBBLE , Ataques. SKULL_BASH , Ataques. HYDRO_PUMP),
+    BLASTOISE (" Blastoise ", Especialidades.AGUA , 79 , Ataques. BUBBLE , Ataques. SKULL_BASH , Ataques. HYDRO_PUMP),
     // Jogador — Geração 2
-    CYNDAQUIL("CYNDAQUIL", Especialidades.GRAMA, 110, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF),
-    TOTODILE("TOTODILE", Especialidades.GRAMA, 150, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF),
-    CHICORITA("CHICORITA", Especialidades.GRAMA, 170, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF),
+    CYNDAQUIL("CYNDAQUIL", Especialidades.PLANTA, 110, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF),
+    TOTODILE("TOTODILE", Especialidades.PLANTA, 150, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF),
+    CHICORITA("CHICORITA", Especialidades.PLANTA, 170, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF),
 
     // Jogador — Geração 3
-    TORCHIC("TORCHIC", Especialidades.GRAMA, 110, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF),
-    MUDKIP("MUDKIP", Especialidades.GRAMA, 150, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF),
-    TREECKO("TREECKO", Especialidades.GRAMA, 170, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF);
+    TORCHIC("TORCHIC", Especialidades.PLANTA, 110, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF),
+    MUDKIP("MUDKIP", Especialidades.PLANTA, 150, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF),
+    TREECKO("TREECKO", Especialidades.PLANTA, 170, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF, Ataques.RAZOR_LEAF);
 
     private final String nome;
     private final Especialidades especialidade;
@@ -46,9 +43,9 @@ public enum Pokemons {
         WARTORTLE.evolucao = BLASTOISE;
         BLASTOISE.evolucao = null;
 
-        BULBASSAURO.evolucao = IVYSAURO;
-        IVYSAURO.evolucao = VENUSAURO;
-        VENUSAURO.evolucao = null;
+        BULBASAUR.evolucao = IVYSAUR;
+        IVYSAUR.evolucao = VENUSAUR;
+        VENUSAUR.evolucao = null;
     }
 
     public String getNome() {

@@ -29,14 +29,53 @@ public enum Especialidades {
     }
 
     static {
-        AGUA.resistencia = FOGO;
-        AGUA.fraqueza = PLANTA;
+        AGUA.resistencia = ELETRICO;
+        AGUA.fraqueza = GELO;
 
-        FOGO.resistencia = PLANTA;
-        FOGO.fraqueza = AGUA;
+        FOGO.resistencia = AGUA;
+        FOGO.fraqueza = INSETO;
 
-        PLANTA.resistencia = AGUA;
-        PLANTA.fraqueza = FOGO;
+        PLANTA.resistencia = FOGO;
+        PLANTA.fraqueza = AGUA;
+
+        ACO.resistencia = LUTADOR;
+        ACO.fraqueza = VOADOR;
+
+        DRAGAO.resistencia = DRAGAO;
+        DRAGAO.fraqueza = ELETRICO;
+
+        FADA.resistencia = VENENOSO;
+        FADA.fraqueza = SOMBRIO;
+
+        FANTASMA.resistencia = SOMBRIO;
+        FANTASMA.fraqueza = PSIQUICO;
+
+        GELO.resistencia = LUTADOR;
+        GELO.fraqueza = GELO;
+
+        INSETO.resistencia = FOGO;
+        INSETO.fraqueza = TERRESTRE;
+
+        NORMAL.resistencia = LUTADOR;
+        NORMAL.fraqueza = FANTASMA;
+
+        PEDRA.resistencia = ACO;
+        PEDRA.fraqueza = NORMAL;
+
+        PSIQUICO.resistencia = FANTASMA;
+        PSIQUICO.fraqueza = LUTADOR;
+
+        SOMBRIO.resistencia = FADA;
+        SOMBRIO.fraqueza = FANTASMA;
+
+        TERRESTRE.resistencia = PLANTA;
+        TERRESTRE.fraqueza = PEDRA;
+
+        VENENOSO.resistencia = PSIQUICO;
+        VENENOSO.fraqueza = PLANTA;
+
+        VOADOR.resistencia = PEDRA;
+        VOADOR.fraqueza = INSETO;
     }
 
     public String getNome() {
