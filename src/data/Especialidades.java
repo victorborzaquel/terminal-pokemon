@@ -1,9 +1,24 @@
 package data;
 
 public enum Especialidades {
-    AGUA("Água"),
-    FOGO("Fogo"),
-    GRAMA("Grama");
+    INSETO ("Inseto"),
+    SOMBRIO ("Sombrio"),
+    DRAGAO ("Dragão"),
+    ELETRICO ("Elétrico"),
+    FADA ("Fada"),
+    LUTADOR ("Lutador"),
+    FOGO ("Fogo"),
+    VOADOR ("Voador"),
+    FANTASMA ("Fantasma"),
+    PLANTA ("Planta"),
+    TERRESTRE ("Terrestre"),
+    GELO ("Gelo"),
+    NORMAL ("Normal"),
+    VENENOSO ("Venenoso"),
+    PSIQUICO ("Psíquico"),
+    PEDRA ("Pedra"),
+    ACO ("Aço"),
+    AGUA ("Água");
 
     private final String nome;
     private Especialidades fraqueza;
@@ -15,13 +30,13 @@ public enum Especialidades {
 
     static {
         AGUA.resistencia = FOGO;
-        AGUA.fraqueza = GRAMA;
+        AGUA.fraqueza = PLANTA;
 
-        FOGO.resistencia = GRAMA;
+        FOGO.resistencia = PLANTA;
         FOGO.fraqueza = AGUA;
 
-        GRAMA.resistencia = AGUA;
-        GRAMA.fraqueza = FOGO;
+        PLANTA.resistencia = AGUA;
+        PLANTA.fraqueza = FOGO;
     }
 
     public String getNome() {

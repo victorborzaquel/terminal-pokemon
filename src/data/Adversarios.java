@@ -1,11 +1,18 @@
 package data;
 
 public enum Adversarios {
-    MISTY(1, "Misty", Especialidades.AGUA, "Valoriza a força!", Pokemons.BULBASSAURO, Pokemons.SQUIRTLE, Pokemons.CHARMANDER),
-    BROCK(1, "Brock", Especialidades.GRAMA, "Valoriza a força!", Pokemons.BULBASSAURO, Pokemons.SQUIRTLE, Pokemons.CHARMANDER),
-    ASH(2, "Ash", Especialidades.FOGO, "Valoriza a força!", Pokemons.BULBASSAURO, Pokemons.SQUIRTLE, Pokemons.CHARMANDER),
-    JOAO(2, "Ash", Especialidades.FOGO, "Valoriza a força!", Pokemons.BULBASSAURO, Pokemons.SQUIRTLE, Pokemons.CHARMANDER),
-    VICTOR(3, "Ash", Especialidades.FOGO, "Valoriza a força!", Pokemons.BULBASSAURO, Pokemons.SQUIRTLE, Pokemons.CHARMANDER);
+    JESSIE(1, "Jessie", Especialidades.VENENOSO, "Equipe Rocket decolando na velocidade da luz!", Pokemons.BULBASSAURO, Pokemons.BULBASSAURO, Pokemons.BULBASSAURO),
+    JAMES(1, "James", Especialidades.VENENOSO, "Renda-se agora ou prepare-se para lutar!", Pokemons.BULBASSAURO, Pokemons.BULBASSAURO, Pokemons.BULBASSAURO),
+    MEOWTH(1, "Meowth", Especialidades.NORMAL, "Meowth! É isso aí!", Pokemons.BULBASSAURO, Pokemons.BULBASSAURO, Pokemons.BULBASSAURO),
+
+    ASH(2, "Ash", Especialidades.ELETRICO, "Temos de pegar todos", Pokemons.BULBASSAURO, Pokemons.BULBASSAURO, Pokemons.BULBASSAURO),
+    MISTY(2, "Misty", Especialidades.AGUA, "Oi, você é uma cara nova!", Pokemons.BULBASSAURO, Pokemons.BULBASSAURO, Pokemons.BULBASSAURO),
+    BROCK(2, "Brock", Especialidades.PEDRA, "Quando se trata de força de vontade, ninguém pode me vencer!", Pokemons.BULBASSAURO, Pokemons.BULBASSAURO, Pokemons.BULBASSAURO),
+
+    TRACEY(3, "Tracey", Especialidades.PLANTA, "...", Pokemons.BULBASSAURO, Pokemons.BULBASSAURO, Pokemons.BULBASSAURO),
+    MAY(3, "May", Especialidades.AGUA, "Pokémon totalmente restaurado! Itens prontos, e… Hã? Huh? Quem... quem é você?", Pokemons.BULBASSAURO, Pokemons.BULBASSAURO, Pokemons.BULBASSAURO),
+    GARY(3, "Gary", Especialidades.FOGO, "Estou aqui para lutar, não para falar. E você?", Pokemons.BULBASSAURO, Pokemons.BULBASSAURO, Pokemons.BULBASSAURO),
+    ;
 
     private final Integer nivel;
     private final String nome;
