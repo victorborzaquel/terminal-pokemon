@@ -106,13 +106,11 @@ public final class Escolha {
     }
 
     public static Adversario adversario(Scanner sc, Jogador jogador) {
-        final Adversarios[] adversarios = Arrays
-                .stream(Adversarios.values())
+        final Adversarios[] adversarios = Arrays.stream(Adversarios.values())
                 .filter(adversario -> adversario.getNivel() == jogador.getNivel())
                 .toArray(Adversarios[]::new);
 
-        final String[] adversariosNomes = Arrays
-                .stream(adversarios)
+        final String[] adversariosNomes = Arrays.stream(adversarios)
                 .map(Adversarios::toString)
                 .toArray(String[]::new);
 
@@ -125,8 +123,7 @@ public final class Escolha {
 
     public static Ataque ataque(Scanner sc, Pokemon pokemon) {
         final Ataque[] ataques = pokemon.getAtaques();
-        final String[] ataquesNomes = Arrays
-                .stream(ataques)
+        final String[] ataquesNomes = Arrays.stream(ataques)
                 .map(Ataque::toString)
                 .toArray(String[]::new);
 
@@ -161,8 +158,7 @@ public final class Escolha {
 
     public static Geracoes geracao(Scanner sc) {
         final Geracoes[] geracoes = Geracoes.values();
-        final String[] geracoesNomes = Arrays
-                .stream(geracoes)
+        final String[] geracoesNomes = Arrays.stream(geracoes)
                 .map(Geracoes::getNome)
                 .toArray(String[]::new);
 
@@ -188,8 +184,7 @@ public final class Escolha {
             }
         }
 
-        final String[] pokemonsNomes = indicePokemonsVivos
-                .stream()
+        final String[] pokemonsNomes = indicePokemonsVivos.stream()
                 .map(i -> pokemons[i].toString())
                 .toArray(String[]::new);
 
@@ -239,8 +234,7 @@ public final class Escolha {
         }
         indicePokemonsVivos.remove(treinador.getIndicePokemonAtual());
 
-        final String[] pokemonsNomes = indicePokemonsVivos
-                .stream()
+        final String[] pokemonsNomes = indicePokemonsVivos.stream()
                 .map(i -> pokemons[i].toString())
                 .toArray(String[]::new);
 
@@ -278,8 +272,7 @@ public final class Escolha {
             }
         }
 
-        final String[] pokemonsNomes = indicePokemonsVivos
-                .stream()
+        final String[] pokemonsNomes = indicePokemonsVivos.stream()
                 .map(i -> pokemons[i].getNome())
                 .toArray(String[]::new);
 

@@ -9,6 +9,11 @@ import utils.PokemonUtils;
 import java.util.Scanner;
 
 public final class Batalha {
+
+    private Batalha() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static void iniciar(Scanner sc, Jogador jogador, Adversario adversario) {
         while (true) {
             Escolha.acaoBatalha(sc, jogador);

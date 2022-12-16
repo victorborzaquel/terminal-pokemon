@@ -1,5 +1,3 @@
-import errors.PedraEvolucaoException;
-import errors.PokemonException;
 import services.menus.Menu;
 import utils.Dialogo;
 

@@ -4,7 +4,8 @@ public enum Adversarios {
     MISTY(1, "Misty", Especialidades.AGUA, "Valoriza a força!", Pokemons.BULBASSAURO, Pokemons.SQUIRTLE, Pokemons.CHARMANDER),
     BROCK(1, "Brock", Especialidades.GRAMA, "Valoriza a força!", Pokemons.BULBASSAURO, Pokemons.SQUIRTLE, Pokemons.CHARMANDER),
     ASH(2, "Ash", Especialidades.FOGO, "Valoriza a força!", Pokemons.BULBASSAURO, Pokemons.SQUIRTLE, Pokemons.CHARMANDER),
-    JOAO(2, "Ash", Especialidades.FOGO, "Valoriza a força!", Pokemons.BULBASSAURO, Pokemons.SQUIRTLE, Pokemons.CHARMANDER);
+    JOAO(2, "Ash", Especialidades.FOGO, "Valoriza a força!", Pokemons.BULBASSAURO, Pokemons.SQUIRTLE, Pokemons.CHARMANDER),
+    VICTOR(3, "Ash", Especialidades.FOGO, "Valoriza a força!", Pokemons.BULBASSAURO, Pokemons.SQUIRTLE, Pokemons.CHARMANDER);
 
     private final Integer nivel;
     private final String nome;

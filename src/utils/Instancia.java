@@ -16,8 +16,7 @@ public final class Instancia {
     public static Jogador jogador(String nome, Geracoes geracao) {
         final int NIVEL = 1;
         final Pokemons[] pokemonsEnum = geracao.getIniciais();
-        final Pokemon[] pokemons = Arrays
-                .stream(pokemonsEnum)
+        final Pokemon[] pokemons = Arrays.stream(pokemonsEnum)
                 .map(Instancia::pokemon)
                 .toArray(Pokemon[]::new);
 
@@ -30,8 +29,7 @@ public final class Instancia {
         final Especialidades especialidade = adversarioEnum.getEspecialidade();
         final String frase = adversarioEnum.getFrase();
         final Pokemons[] pokemonsEnum = adversarioEnum.getPokemons();
-        final Pokemon[] pokemons = Arrays
-                .stream(pokemonsEnum)
+        final Pokemon[] pokemons = Arrays.stream(pokemonsEnum)
                 .map(Instancia::pokemon)
                 .toArray(Pokemon[]::new);
 
@@ -45,8 +43,7 @@ public final class Instancia {
         final Pokemon evolucao = evolucaoEnum == null ? null : pokemon(evolucaoEnum);
         final Integer vida = pokemonEnum.getVida();
         final Ataques[] ataquesEnum = pokemonEnum.getAtaques();
-        final Ataque[] ataques = Arrays
-                .stream(ataquesEnum)
+        final Ataque[] ataques = Arrays.stream(ataquesEnum)
                 .map(Instancia::ataque)
                 .toArray(Ataque[]::new);
 

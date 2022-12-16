@@ -39,14 +39,8 @@ public final class Arquivo {
 
     private static void writer(Jogador jogador, Historicos historico) throws IOException {
         final Pokemon[] pokemons = jogador.getPokemons();
-
-        final String[] nomesPokemons = Arrays
-                .stream(pokemons)
+        final String nomesPokemons = Arrays.stream(pokemons)
                 .map(Pokemon::getNome)
-                .toArray(String[]::new);
-
-        final String nomesPokemonsString = Arrays
-                .stream(nomesPokemons)
                 .reduce((a, b) -> a + ", " + b)
                 .map(Object::toString)
                 .orElse("");
@@ -57,7 +51,7 @@ public final class Arquivo {
         final PrintWriter printWriter = new PrintWriter(fileWriter);
 
         final String message = "Nome: %s, Level: %d, Pokemons: [ %s ]\n";
-        printWriter.printf(message, jogador.getNome(), jogador.getNivel(), nomesPokemonsString);
+        printWriter.printf(message, jogador.getNome(), jogador.getNivel(), nomesPokemons);
         printWriter.flush();
         printWriter.close();
     }

@@ -26,9 +26,7 @@ public final class PokemonUtils {
 
         final Map<Integer, Pokemon> pokemons = jogador.getPokemonsMortos();
 
-        final Integer[] pokemonsIndices = pokemons
-                .keySet()
-                .toArray(Integer[]::new);
+        final Integer[] pokemonsIndices = pokemons.keySet().toArray(Integer[]::new);
 
         jogador.usarRevive(pokemonsIndices[indice]);
     }
