@@ -48,8 +48,11 @@ public final class Dialogo {
         System.out.println("Você perdeu o Jogo!");
     }
 
-    public static void ganhouJogo() {
-        System.out.println("Você ganhou o Jogo!");
+    public static void ganhouJogo(Jogador jogador) {
+        Imprima.limparConsole();
+        Imprima.divisoria("PARABÉNS");
+        System.out.printf("%s, você ganhou o Jogo!%n", jogador.getNome());
+        System.out.println("Obrigado por jogar, até a próxima!");
     }
 
     public static void ganhouPartida() {

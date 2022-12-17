@@ -1,4 +1,4 @@
-import services.menus.Menu;
+import services.menus.MenuInicial;
 import utils.Dialogo;
 
 import java.util.Scanner;
@@ -8,7 +8,7 @@ public final class Main {
         Dialogo.boasVindas();
 
         Scanner sc = new Scanner(System.in);
-        Menu.abrir(sc);
+        MenuInicial.abrir(sc);
         sc.close();
     }
 }

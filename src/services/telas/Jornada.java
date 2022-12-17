@@ -48,8 +48,9 @@ public final class Jornada {
             }
 
             if (jogador.getNivel() >= 3) {
-                Dialogo.ganhouJogo();
+                Dialogo.ganhouJogo(jogador);
                 Arquivo.salvar(jogador, Historicos.VITORIAS);
+                Escolha.reiniciar(sc);
                 return;
             }
 

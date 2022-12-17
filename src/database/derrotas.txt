@@ -1,1 +1,1 @@
-Nome: victor, Level: 1, Pokemons: [ TORCHIC, MUDKIP, TREECKO ]
+Nome: thiago, Level: 2, Pokemons: [ Bulbassauro, Charmander, Squirtle ]

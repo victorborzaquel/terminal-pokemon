@@ -55,7 +55,8 @@ public final class Instancia {
         final Especialidades especialidade = ataqueEnum.getEspecialidade();
         final Integer danoMinimo = ataqueEnum.getDanoMinimo();
         final Integer danoMaximo = ataqueEnum.getDanoMaximo();
+        final Integer pp = ataqueEnum.getPp();
 
-        return new Ataque(nome, especialidade, danoMinimo, danoMaximo);
+        return new Ataque(nome, especialidade, danoMinimo, danoMaximo, pp);
     }
 }

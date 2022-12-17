@@ -2,8 +2,8 @@ package services.telas;
 
 import models.Jogador;
 import models.Adversario;
+import services.menus.MenuBatalha;
 import utils.Dialogo;
-import utils.Escolha;
 import utils.PokemonUtils;
 
 import java.util.Scanner;
@@ -16,15 +16,12 @@ public final class Batalha {
 
     public static void iniciar(Scanner sc, Jogador jogador, Adversario adversario) {
         while (true) {
-            Escolha.acaoBatalha(sc, jogador);
-            final int ataqueJogador = PokemonUtils.atacar(sc, jogador, adversario);
+            MenuBatalha.abrir(sc, jogador, adversario);
 
             if (adversario.pokemonAtualEstaVivo()) {
-                final int ataqueAdversario = PokemonUtils.atacar(adversario, jogador);
-                Dialogo.resultadoAtaque(jogador, ataqueAdversario);
+                PokemonUtils.atacar(adversario, jogador);
             }
 
-            Dialogo.resultadoAtaque(adversario, ataqueJogador);
             Dialogo.resumoBatalha(jogador, adversario);
 
             if (adversario.pokemonAtualEstaMorto()) {

@@ -1,1 +1,1 @@
-Nome: vic, Level: 2, Pokemons: [ Bulbassauro, Charmander, Squirtle ]
+Nome: victor, Level: 2, Pokemons: [ Bulbassauro, Charmander, Squirtle ]

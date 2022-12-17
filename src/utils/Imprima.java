@@ -41,11 +41,17 @@ public final class Imprima {
         divisoria();
     }
 
-    public static Integer escolhaUmaOpcao(Scanner sc, String titulo, String[] opcoes, String... restOpcoes) {
-        final String[] todasOpcoes = new String[opcoes.length + restOpcoes.length];
+    public static Integer escolhaUmaOpcaoOuVoltar(Scanner sc, String titulo, String subtitulo, String[] opcoes) {
+        final String[] todasOpcoes = new String[opcoes.length + 1];
         System.arraycopy(opcoes, 0, todasOpcoes, 0, opcoes.length);
-        System.arraycopy(restOpcoes, 0, todasOpcoes, opcoes.length, restOpcoes.length);
+        todasOpcoes[opcoes.length] = "Voltar";
+        return escolhaUmaOpcao(sc, titulo, subtitulo, todasOpcoes);
+    }
 
+    public static Integer escolhaUmaOpcaoOuVoltar(Scanner sc, String titulo, String[] opcoes) {
+        final String[] todasOpcoes = new String[opcoes.length + 1];
+        System.arraycopy(opcoes, 0, todasOpcoes, 0, opcoes.length);
+        todasOpcoes[opcoes.length] = "Voltar";
         return escolhaUmaOpcao(sc, titulo, SUBTITULO_PADRAO, todasOpcoes);
     }
 

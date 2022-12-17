@@ -6,9 +6,9 @@ import utils.Escolha;
 
 import java.util.Scanner;
 
-public final class Historico {
+public final class MenuHistorico {
 
-    private Historico() {
+    private MenuHistorico() {
         throw new IllegalStateException("Utility class");
     }
 

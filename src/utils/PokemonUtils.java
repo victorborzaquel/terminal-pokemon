@@ -1,5 +1,6 @@
 package utils;
 
+import errors.PPInsuficienteException;
 import errors.PedraEvolucaoException;
 import errors.PokemonException;
 import errors.SemPokemonsException;
@@ -8,6 +9,7 @@ import models.Jogador;
 import models.Pokemon;
 import models.Treinador;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -31,21 +33,39 @@ public final class PokemonUtils {
         jogador.usarRevive(pokemonsIndices[indice]);
     }
 
-    public static Integer atacar(Scanner sc, Treinador atacante, Treinador alvo) {
+    public static void atacar(Scanner sc, Treinador atacante, Treinador alvo) {
         final Pokemon pokemonAtacante = atacante.getPokemonAtual();
         final Pokemon pokemonAlvo = alvo.getPokemonAtual();
 
-        final Ataque ataque = Escolha.ataque(sc, pokemonAtacante);
+        final Ataque[] ataques = Arrays.stream(pokemonAtacante.getAtaques())
+                .filter(ataque -> ataque.getPpAtual() > 0)
+                .toArray(Ataque[]::new);
 
-        return pokemonAlvo.receberDano(ataque);
+        if (ataques.length == 0) {
+            System.out.printf("%s não tem ataques disponíveis%n", pokemonAtacante.getNome());
+            return;
+        }
+
+        try {
+            final Ataque ataque = Escolha.ataque(sc, pokemonAtacante);
+            final int dano = pokemonAlvo.receberDano(ataque);
+            Dialogo.resultadoAtaque(alvo, dano);
+        } catch (PPInsuficienteException e) {
+            Imprima.divisoriaEmbrulho(e.getMessage());
+            atacar(sc, atacante, alvo);
+        }
     }
 
-    public static Integer atacar(Treinador atacante, Treinador alvo) {
+    public static void atacar(Treinador atacante, Treinador alvo) {
         final Pokemon pokemonAtacante = atacante.getPokemonAtual();
         final Pokemon pokemonAlvo = alvo.getPokemonAtual();
 
-        final Ataque ataque = Escolha.ataque(pokemonAtacante);
-
-        return pokemonAlvo.receberDano(ataque);
+        try {
+            final Ataque ataque = Escolha.ataque(pokemonAtacante);
+            final int dano = pokemonAlvo.receberDano(ataque);
+            Dialogo.resultadoAtaque(alvo, dano);
+        } catch (PPInsuficienteException e) {
+            Imprima.divisoriaEmbrulho(e.getMessage());
+        }
     }
 }

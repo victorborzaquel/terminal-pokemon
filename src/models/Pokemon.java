@@ -1,7 +1,11 @@
 package models;
 
 import data.Especialidades;
+import errors.PPInsuficienteException;
 import errors.PokemonException;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public final class Pokemon {
     private final String nome;
@@ -31,7 +35,7 @@ public final class Pokemon {
         vida = Math.max(vidaMaxima, novaVida);
     }
 
-    public int receberDano(Ataque ataque) {
+    public int receberDano(Ataque ataque) throws PPInsuficienteException {
         final int danoBase = ataque.getDano();
         final Especialidades fraquese = especialidade.getFraqueza();
         final Especialidades resistencia = especialidade.getResistencia();
@@ -76,6 +80,18 @@ public final class Pokemon {
 
     public Pokemon getEvolucao() {
         return evolucao;
+    }
+
+    public Map<Integer, Ataque> getAtaquesComPp() {
+        Map<Integer, Ataque> ataquesComPp = new HashMap<>();
+
+        for (int i = 0; i < ataques.length; i++) {
+            if (ataques[i].getPpAtual() > 0) {
+                ataquesComPp.put(i, ataques[i]);
+            }
+        }
+
+        return ataquesComPp;
     }
 
     @Override

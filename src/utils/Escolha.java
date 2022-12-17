@@ -2,6 +2,7 @@ package utils;
 
 import data.Geracoes;
 import data.Historicos;
+import errors.PPInsuficienteException;
 import errors.PedraEvolucaoException;
 import errors.PokemonException;
 import errors.SemPokemonsException;
@@ -36,7 +37,7 @@ public final class Escolha {
                 .map(Historicos::getTitulo)
                 .toArray(String[]::new);
 
-        final Integer escolha = Imprima.escolhaUmaOpcao(sc, "Histórico", titulosHistoricos, "Voltar");
+        final Integer escolha = Imprima.escolhaUmaOpcaoOuVoltar(sc, "Histórico", titulosHistoricos);
 
         if (escolha == titulosHistoricos.length + 1) {
             return -1;
@@ -56,7 +57,18 @@ public final class Escolha {
             return;
         }
 
-        int indicePokemon = Escolha.pokemonMorto(sc, jogador) - 1;
+        if (!jogador.temPokemonMorto()) {
+            Imprima.divisoriaEmbrulho("Você não tem pokemons mortos");
+            return;
+        }
+
+        final int escolhaPokemon = Escolha.pokemonMorto(sc, jogador);
+
+        if (escolhaPokemon == -1) {
+            return;
+        }
+
+        final int indicePokemon = escolhaPokemon - 1;
 
         try {
             PokemonUtils.reviver(jogador, indicePokemon);
@@ -73,11 +85,15 @@ public final class Escolha {
     }
 
     public static Integer pokemonMorto(Scanner sc, Jogador jogador) {
-        if (Boolean.FALSE.equals(jogador.temPokemonMorto())) {
+        if (!jogador.temPokemonMorto()) {
             throw new SemPokemonsException("O treinador não tem pokemons mortos");
         }
 
         final Map<Integer, Pokemon> pokemons = jogador.getPokemonsMortos();
+
+        if (pokemons.isEmpty()) {
+            return -1;
+        }
 
         final String[] pokemonsNomes = pokemons
                 .values()
@@ -87,7 +103,7 @@ public final class Escolha {
 
         final String TITULO = "Escolha um pokemon para reviver";
 
-        return Imprima.escolhaUmaOpcao(sc, TITULO, pokemonsNomes);
+        return Imprima.escolhaUmaOpcaoOuVoltar(sc, TITULO, pokemonsNomes);
     }
 
     public static Boolean abandonar(Scanner sc) {
@@ -121,7 +137,11 @@ public final class Escolha {
         return Instancia.adversario(adversarios[escolha - 1]);
     }
 
-    public static Ataque ataque(Scanner sc, Pokemon pokemon) {
+    public static Ataque ataque(Scanner sc, Pokemon pokemon) throws PPInsuficienteException {
+        if (pokemon.getAtaquesComPp().isEmpty()) {
+            throw new PPInsuficienteException("O pokemon não tem ataques com PP");
+        }
+
         final Ataque[] ataques = pokemon.getAtaques();
         final String[] ataquesNomes = Arrays.stream(ataques)
                 .map(Ataque::toString)
@@ -133,14 +153,27 @@ public final class Escolha {
         final int escolha = Imprima.escolhaUmaOpcao(sc, TITULO, SUBTITULO, ataquesNomes);
         final Ataque ataque = ataques[escolha - 1];
 
+        if (ataque.getPpAtual() <= 0) {
+            Imprima.divisoriaEmbrulho("Você não tem mais PP para usar esse ataque!");
+            return ataque(sc, pokemon);
+        }
+
         System.out.printf("%s usou %s%n", pokemon.getNome(), ataque.getNome());
 
         return ataque;
     }
 
-    public static Ataque ataque(Pokemon pokemon) {
-        final Ataque[] ataques = pokemon.getAtaques();
-        final Ataque ataque = ataques[Escolha.aleatorio(0, ataques.length - 1)];
+    public static Ataque ataque(Pokemon pokemon) throws PPInsuficienteException {
+        final Map<Integer, Ataque> ataques = pokemon.getAtaquesComPp();
+        final Integer[] ataquesIndices = ataques.keySet().toArray(Integer[]::new);
+
+        if (ataquesIndices.length == 0) {
+            String mensagem = String.format("O pokemon %s não tem ataques com PP", pokemon.getNome());
+            throw new PPInsuficienteException(mensagem);
+        }
+
+        final Integer escolha = ataquesIndices[Escolha.aleatorio(0, ataquesIndices.length - 1)];
+        final Ataque ataque = ataques.get(escolha);
 
         System.out.printf("%s usou %s%n", pokemon.getNome(), ataque.getNome());
 
@@ -163,7 +196,7 @@ public final class Escolha {
                 .toArray(String[]::new);
 
         final String TITULO = "GERAÇÃO";
-        final String SUBTITULO = "Escolha uma geração";
+        final String SUBTITULO = "Escolha os seus pokemons de uma geração";
         final int escolha = Imprima.escolhaUmaOpcao(sc, TITULO, SUBTITULO, geracoesNomes);
 
         return geracoes[escolha - 1];
@@ -240,45 +273,63 @@ public final class Escolha {
 
         final String TITULO = "Escolher Pokemon";
         final String SUBTITULO = "Escolha um pokemon";
-        final int escolha = Imprima.escolhaUmaOpcao(sc, TITULO, SUBTITULO, pokemonsNomes);
+        final int escolha = Imprima.escolhaUmaOpcaoOuVoltar(sc, TITULO, SUBTITULO, pokemonsNomes);
+
+        if (escolha == pokemonsNomes.length + 1) {
+            return;
+        }
 
         final int indice = indicePokemonsVivos.get(escolha - 1);
 
         treinador.definirPokemonBatalha(indice);
 
-        Imprima.divisoriaEmbrulho("%s foi trocado por %s%n", pokemonAntigo.getNome(), treinador.getPokemonAtual().getNome());
+        String mensagem = String.format("%s trocou %s por %s", treinador.getNome(), pokemonAntigo.getNome(), treinador.getPokemonAtual().getNome());
+        Imprima.divisoriaEmbrulho(mensagem);
     }
 
     public static void evoluirPokemon(Scanner sc, Jogador jogador) {
-        final String TITULO = "Evoluir";
-        final String SUBTITULO = "Você tem uma pedra de evolução!\nDeseja evoluir seu pokemon?";
-        final String[] opcoes = {"Sim", "Não"};
-        final int escolha = Imprima.escolhaUmaOpcao(sc, TITULO, SUBTITULO, opcoes);
+        while (true) {
+            if (!jogador.temPedraEvolucao()) {
+                return;
+            }
 
-        switch (escolha) {
-            case 1 -> evoluir(sc, jogador);
-            case 2 -> {/* Não faz nada*/}
-            default -> Dialogo.opcaoInvalida();
+            final String TITULO = "Evoluir";
+            final String SUBTITULO = "Você tem uma pedra de evolução!\nDeseja evoluir seu pokemon?";
+            final String[] opcoes = {"Sim", "Não"};
+            final int escolha = Imprima.escolhaUmaOpcao(sc, TITULO, SUBTITULO, opcoes);
+
+            switch (escolha) {
+                case 1 -> evoluir(sc, jogador);
+                case 2 -> {
+                    return;
+                }
+                default -> Dialogo.opcaoInvalida();
+            }
         }
     }
 
     private static void evoluir(Scanner sc, Jogador jogador) {
         final Pokemon[] pokemons = jogador.getPokemons();
-        final List<Integer> indicePokemonsVivos = new ArrayList<>();
+        final List<Integer> indicePokemonsTemEvolucao = new ArrayList<>();
 
         for (int i = 0; i < pokemons.length; i++) {
             if (pokemons[i].getEvolucao() != null) {
-                indicePokemonsVivos.add(i);
+                indicePokemonsTemEvolucao.add(i);
             }
         }
 
-        final String[] pokemonsNomes = indicePokemonsVivos.stream()
+        if (indicePokemonsTemEvolucao.isEmpty()) {
+            Imprima.divisoriaEmbrulho("Você não tem nenhum pokemon que possa evoluir!");
+            return;
+        }
+
+        final String[] pokemonsNomes = indicePokemonsTemEvolucao.stream()
                 .map(i -> pokemons[i].getNome())
                 .toArray(String[]::new);
 
 
         final int escolhaPokemon = Imprima.escolhaUmaOpcao(sc, "Escolha um pokemon", pokemonsNomes);
-        final int indicePokemon = indicePokemonsVivos.get(escolhaPokemon - 1);
+        final int indicePokemon = indicePokemonsTemEvolucao.get(escolhaPokemon - 1);
 
         final Pokemon pokemon = pokemons[indicePokemon];
 
@@ -294,23 +345,10 @@ public final class Escolha {
         }
     }
 
-    public static void acaoBatalha(Scanner sc, Jogador jogador) {
-        final String TITULO = "Ação";
-        final String SUBTITULO = "O que deseja fazer?";
-        final String[] opcoes = {"Atacar", "Trocar Pokemon", "Ver Inventario"};
-        final int escolha = Imprima.escolhaUmaOpcao(sc, TITULO, SUBTITULO, opcoes);
-
-        switch (escolha) {
-            case 1 -> {/* Não faz nada */}
-            case 2 -> trocaPokemon(sc, jogador);
-            case 3 -> verInventario(jogador);
-            default -> Dialogo.opcaoInvalida();
-        }
-    }
-
-    private static void verInventario(Jogador jogador) {
+    public static void verInventario(Jogador jogador) {
         final Pokemon[] pokemons = jogador.getPokemons();
 
+        Imprima.divisoria("Inventario");
         System.out.println(jogador.temRevive() ? "Você tem um revive!" : "Você não tem revive!");
 
         if (jogador.getPedraEvolucao() == 0) {
@@ -321,6 +359,7 @@ public final class Escolha {
             System.out.printf("Você tem %d pedras de evolução!%n", jogador.getPedraEvolucao());
         }
 
+        Imprima.divisoria("Pokemons");
         for (int i = 0; i < pokemons.length; i++) {
             final Pokemon pokemon = pokemons[i];
 
@@ -335,5 +374,18 @@ public final class Escolha {
             System.out.println();
         }
 
+    }
+
+    public static void reiniciar(Scanner sc) {
+        final String TITULO = "Reiniciar";
+        final String SUBTITULO = "Deseja reiniciar o jogo?";
+        final String[] opcoes = {"Sim", "Não"};
+        final int escolha = Imprima.escolhaUmaOpcao(sc, TITULO, SUBTITULO, opcoes);
+
+        switch (escolha) {
+            case 1 -> {/* Não faz nada */}
+            case 2 -> System.exit(0);
+            default -> Dialogo.opcaoInvalida();
+        }
     }
 }
