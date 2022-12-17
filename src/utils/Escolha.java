@@ -46,14 +46,17 @@ public final class Escolha {
         return escolha;
     }
 
-    public static void reviverPokemon(Scanner sc, Jogador jogador) {
+    public static boolean ehParaRevicer(Scanner sc) {
         final String[] OPCOES = {"Reviver", "Não"};
         final String TITULO = "Deseja reviver um pokemon?";
         final int escolhaSair = Imprima.escolhaUmaOpcao(sc, TITULO, OPCOES);
 
-        final Pokemon[] pokemons = jogador.getPokemons();
+        return escolhaSair != 2;
+    }
+    public static void reviverPokemon(Scanner sc, Jogador jogador) {
+        final boolean ehParaReviver = Escolha.ehParaRevicer(sc);
 
-        if (escolhaSair == 2) {
+        if (!ehParaReviver) {
             return;
         }
 
@@ -62,18 +65,26 @@ public final class Escolha {
             return;
         }
 
-        final int escolhaPokemon = Escolha.pokemonMorto(sc, jogador);
+        final Map<Integer, Pokemon> pokemons = jogador.getPokemonsMortos();
 
-        if (escolhaPokemon == -1) {
+        final Integer[] pokemonsIndices = pokemons.keySet().toArray(Integer[]::new);
+        final String[] pokemonsNomes = pokemons.values().stream()
+                .map(Pokemon::getNome)
+                .toArray(String[]::new);
+
+        final String TITULO = "Escolha um pokemon para reviver";
+        final int escolha = Imprima.escolhaUmaOpcaoOuVoltar(sc, TITULO, pokemonsNomes);
+
+        if (escolha == -1) {
             return;
         }
 
-        final int indicePokemon = escolhaPokemon - 1;
+        final int indicePokemon = pokemonsIndices[escolha - 1];
 
         try {
             PokemonUtils.reviver(jogador, indicePokemon);
 
-            final Pokemon pokemon = pokemons[indicePokemon];
+            final Pokemon pokemon = pokemons.get(indicePokemon);
             final String pokemonNome = pokemon.getNome();
             final Integer pokemonVida = pokemon.getVida();
             final String mensagem = String.format("Seu pokemon %s reviveu e está com %d de vida!", pokemonNome, pokemonVida);
@@ -84,27 +95,6 @@ public final class Escolha {
         }
     }
 
-    public static Integer pokemonMorto(Scanner sc, Jogador jogador) {
-        if (!jogador.temPokemonMorto()) {
-            throw new SemPokemonsException("O treinador não tem pokemons mortos");
-        }
-
-        final Map<Integer, Pokemon> pokemons = jogador.getPokemonsMortos();
-
-        if (pokemons.isEmpty()) {
-            return -1;
-        }
-
-        final String[] pokemonsNomes = pokemons
-                .values()
-                .stream()
-                .map(Pokemon::getNome)
-                .toArray(String[]::new);
-
-        final String TITULO = "Escolha um pokemon para reviver";
-
-        return Imprima.escolhaUmaOpcaoOuVoltar(sc, TITULO, pokemonsNomes);
-    }
 
     public static Boolean abandonar(Scanner sc) {
         Imprima.divisoriaEmbrulho("Quer continuar sua jornada?");

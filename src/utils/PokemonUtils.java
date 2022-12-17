@@ -10,7 +10,6 @@ import models.Pokemon;
 import models.Treinador;
 
 import java.util.Arrays;
-import java.util.Map;
 import java.util.Scanner;
 
 public final class PokemonUtils {
@@ -26,11 +25,13 @@ public final class PokemonUtils {
             throw new PokemonException("Esse pokemon não está morto");
         }
 
-        final Map<Integer, Pokemon> pokemons = jogador.getPokemonsMortos();
+        final Pokemon[] pokemons = jogador.getPokemons();
 
-        final Integer[] pokemonsIndices = pokemons.keySet().toArray(Integer[]::new);
+        if (!pokemons[indice].estaMorto()) {
+            throw new PedraEvolucaoException("Esse pokemon não está morto");
+        }
 
-        jogador.usarRevive(pokemonsIndices[indice]);
+        jogador.usarRevive(indice);
     }
 
     public static void atacar(Scanner sc, Treinador atacante, Treinador alvo) {
