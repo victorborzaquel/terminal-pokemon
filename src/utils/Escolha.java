@@ -2,7 +2,7 @@ package utils;
 
 import data.Geracoes;
 import data.Historicos;
-import errors.PPInsuficienteException;
+import errors.PpInsuficienteException;
 import errors.PedraEvolucaoException;
 import errors.PokemonException;
 import errors.SemPokemonsException;
@@ -46,13 +46,14 @@ public final class Escolha {
         return escolha;
     }
 
-    public static boolean ehParaRevicer(Scanner sc) {
+    private static boolean ehParaRevicer(Scanner sc) {
         final String[] OPCOES = {"Reviver", "Não"};
         final String TITULO = "Deseja reviver um pokemon?";
         final int escolhaSair = Imprima.escolhaUmaOpcao(sc, TITULO, OPCOES);
 
         return escolhaSair != 2;
     }
+
     public static void reviverPokemon(Scanner sc, Jogador jogador) {
         final boolean ehParaReviver = Escolha.ehParaRevicer(sc);
 
@@ -75,7 +76,7 @@ public final class Escolha {
         final String TITULO = "Escolha um pokemon para reviver";
         final int escolha = Imprima.escolhaUmaOpcaoOuVoltar(sc, TITULO, pokemonsNomes);
 
-        if (escolha == -1) {
+        if (escolha == pokemonsNomes.length + 1) {
             return;
         }
 
@@ -127,9 +128,9 @@ public final class Escolha {
         return Instancia.adversario(adversarios[escolha - 1]);
     }
 
-    public static Ataque ataque(Scanner sc, Pokemon pokemon) throws PPInsuficienteException {
+    public static Ataque ataque(Scanner sc, Pokemon pokemon) throws PpInsuficienteException {
         if (pokemon.getAtaquesComPp().isEmpty()) {
-            throw new PPInsuficienteException("O pokemon não tem ataques com PP");
+            throw new PpInsuficienteException("O pokemon não tem ataques com PP");
         }
 
         final Ataque[] ataques = pokemon.getAtaques();
@@ -153,13 +154,13 @@ public final class Escolha {
         return ataque;
     }
 
-    public static Ataque ataque(Pokemon pokemon) throws PPInsuficienteException {
+    public static Ataque ataque(Pokemon pokemon) throws PpInsuficienteException {
         final Map<Integer, Ataque> ataques = pokemon.getAtaquesComPp();
         final Integer[] ataquesIndices = ataques.keySet().toArray(Integer[]::new);
 
         if (ataquesIndices.length == 0) {
             String mensagem = String.format("O pokemon %s não tem ataques com PP", pokemon.getNome());
-            throw new PPInsuficienteException(mensagem);
+            throw new PpInsuficienteException(mensagem);
         }
 
         final Integer escolha = ataquesIndices[Escolha.aleatorio(0, ataquesIndices.length - 1)];
