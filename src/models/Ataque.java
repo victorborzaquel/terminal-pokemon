@@ -1,7 +1,7 @@
 package models;
 
 import data.Especialidades;
-import errors.PPInsuficienteException;
+import errors.PpInsuficienteException;
 import utils.Escolha;
 
 public final class Ataque {
@@ -25,9 +25,9 @@ public final class Ataque {
         return nome;
     }
 
-    public int getDano() throws PPInsuficienteException {
+    public int getDano() throws PpInsuficienteException {
         if (ppAtual <= 0) {
-            throw new PPInsuficienteException();
+            throw new PpInsuficienteException();
         }
         ppAtual--;
         return Escolha.aleatorio(danoMinimo, danoMaximo);

@@ -35,7 +35,7 @@ final public class MenuBatalha {
         }
     }
 
-    enum Opcoes {
+    private enum Opcoes {
         ATACAR("Atacar"),
         TROCAR_POKEMON("Trocar Pokemon"),
         VER_INVENTARIO("Ver Inventario");

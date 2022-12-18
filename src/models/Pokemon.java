@@ -1,9 +1,10 @@
 package models;
 
 import data.Especialidades;
-import errors.PPInsuficienteException;
+import errors.PpInsuficienteException;
 import errors.PokemonException;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,16 +36,24 @@ public final class Pokemon {
         vida = Math.max(vidaMaxima, novaVida);
     }
 
-    public int receberDano(Ataque ataque) throws PPInsuficienteException {
+    public int receberDano(Ataque ataque) throws PpInsuficienteException {
         final int danoBase = ataque.getDano();
-        final Especialidades fraquese = especialidade.getFraqueza();
-        final Especialidades resistencia = especialidade.getResistencia();
+        final Especialidades[] fraquesas = especialidade.getFraquezas();
+        final Especialidades[] resistencias = especialidade.getResistencias();
+
+        final boolean temFraqusa = Arrays.stream(fraquesas)
+                .anyMatch(especialidade -> especialidade == ataque.getEspecialidade());
+
+        final boolean temResistencia = Arrays.stream(resistencias)
+                .anyMatch(especialidade -> especialidade == ataque.getEspecialidade());
 
         double multiplicador = 1;
-        if (ataque.getEspecialidade() == fraquese) {
-            multiplicador = 2;
-        } else if (ataque.getEspecialidade() == resistencia) {
-            multiplicador = 0.5;
+        if (temFraqusa) {
+            multiplicador *= 2;
+        }
+
+        if (temResistencia) {
+            multiplicador *= 0.5;
         }
 
         final int dano = (int) (danoBase * multiplicador);

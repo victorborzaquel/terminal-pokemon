@@ -21,75 +21,82 @@ public enum Especialidades {
     AGUA("Água");
 
     private final String nome;
-    private Especialidades fraqueza;
-    private Especialidades resistencia;
+    private Especialidades[] fraquezas;
+    private Especialidades[] resistencias;
 
     Especialidades(String type) {
         this.nome = type;
     }
 
     static {
-        AGUA.resistencia = ELETRICO;
-        AGUA.fraqueza = GELO;
+        NORMAL.resistencias = e();
+        NORMAL.fraquezas = e(LUTADOR);
 
-        FOGO.resistencia = AGUA;
-        FOGO.fraqueza = INSETO;
+        PLANTA.resistencias = e(TERRESTRE, PEDRA, AGUA);
+        PLANTA.fraquezas = e(FOGO, VENENOSO, VOADOR, INSETO, GELO);
 
-        PLANTA.resistencia = FOGO;
-        PLANTA.fraqueza = AGUA;
+        FOGO.resistencias = e(PLANTA, GELO, ACO, INSETO);
+        FOGO.fraquezas = e(AGUA, TERRESTRE, PEDRA);
 
-        ACO.resistencia = LUTADOR;
-        ACO.fraqueza = VOADOR;
+        AGUA.resistencias = e(TERRESTRE, PEDRA, FOGO);
+        AGUA.fraquezas = e(PLANTA, ELETRICO);
 
-        DRAGAO.resistencia = DRAGAO;
-        DRAGAO.fraqueza = ELETRICO;
+        ELETRICO.resistencias = e(AGUA, VOADOR);
+        ELETRICO.fraquezas = e(TERRESTRE);
 
-        FADA.resistencia = VENENOSO;
-        FADA.fraqueza = SOMBRIO;
+        VOADOR.resistencias = e(PLANTA, LUTADOR, INSETO);
+        VOADOR.fraquezas = e(ELETRICO, GELO, PEDRA);
 
-        FANTASMA.resistencia = SOMBRIO;
-        FANTASMA.fraqueza = PSIQUICO;
+        GELO.resistencias = e(PLANTA, TERRESTRE, VOADOR, DRAGAO);
+        GELO.fraquezas = e(FOGO, LUTADOR, PEDRA, ACO);
 
-        GELO.resistencia = LUTADOR;
-        GELO.fraqueza = GELO;
+        PEDRA.resistencias = e(INSETO, VOADOR, FOGO, GELO);
+        PEDRA.fraquezas = e(AGUA, PLANTA, LUTADOR, TERRESTRE, ACO);
 
-        INSETO.resistencia = FOGO;
-        INSETO.fraqueza = TERRESTRE;
+        TERRESTRE.resistencias = e(FOGO, ELETRICO, PEDRA, VENENOSO, ACO);
+        TERRESTRE.fraquezas = e(GELO, AGUA, PLANTA);
 
-        NORMAL.resistencia = LUTADOR;
-        NORMAL.fraqueza = FANTASMA;
+        ACO.resistencias = e(FADA, GELO, PEDRA);
+        ACO.fraquezas = e(LUTADOR, FOGO, TERRESTRE);
 
-        PEDRA.resistencia = ACO;
-        PEDRA.fraqueza = NORMAL;
+        LUTADOR.resistencias = e(NORMAL, PEDRA, ACO, GELO, SOMBRIO);
+        LUTADOR.fraquezas = e(VOADOR, FADA, PSIQUICO);
 
-        PSIQUICO.resistencia = FANTASMA;
-        PSIQUICO.fraqueza = LUTADOR;
+        SOMBRIO.resistencias = e(FANTASMA, PSIQUICO);
+        SOMBRIO.fraquezas = e(LUTADOR, FADA, INSETO);
 
-        SOMBRIO.resistencia = FADA;
-        SOMBRIO.fraqueza = FANTASMA;
+        PSIQUICO.resistencias = e(LUTADOR, VENENOSO);
+        PSIQUICO.fraquezas = e(FANTASMA, SOMBRIO, INSETO);
 
-        TERRESTRE.resistencia = PLANTA;
-        TERRESTRE.fraqueza = PEDRA;
+        VENENOSO.resistencias = e(PLANTA, FADA);
+        VENENOSO.fraquezas = e(TERRESTRE, PSIQUICO);
 
-        VENENOSO.resistencia = PSIQUICO;
-        VENENOSO.fraqueza = PLANTA;
+        INSETO.resistencias = e(PLANTA, SOMBRIO, PSIQUICO);
+        INSETO.fraquezas = e(FOGO, VOADOR, PEDRA);
 
-        VOADOR.resistencia = PEDRA;
-        VOADOR.fraqueza = INSETO;
+        FADA.resistencias = e(LUTADOR, DRAGAO, SOMBRIO);
+        FADA.fraquezas = e(VENENOSO, ACO);
 
-        ELETRICO.resistencia = PEDRA;
-        ELETRICO.fraqueza = AGUA;
+        FANTASMA.resistencias = e(FANTASMA, PSIQUICO);
+        FANTASMA.fraquezas = e(FANTASMA, SOMBRIO);
+
+        DRAGAO.resistencias = e(DRAGAO);
+        DRAGAO.fraquezas = e(DRAGAO, GELO, FADA);
+    }
+
+    private static Especialidades[] e(Especialidades... especialidades) {
+        return especialidades;
     }
 
     public String getNome() {
         return nome;
     }
 
-    public Especialidades getFraqueza() {
-        return fraqueza;
+    public Especialidades[] getFraquezas() {
+        return fraquezas;
     }
 
-    public Especialidades getResistencia() {
-        return resistencia;
+    public Especialidades[] getResistencias() {
+        return resistencias;
     }
 }

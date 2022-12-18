@@ -30,7 +30,7 @@ public final class MenuInicial {
         }
     }
 
-    enum Opcoes {
+    private enum Opcoes {
         INICIAR_PARTIDA("Iniciar partida"),
         HISTORICO("Histórico"),
         SAIR("Sair");

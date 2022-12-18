@@ -46,7 +46,7 @@ public final class Escolha {
         return escolha;
     }
 
-    private static boolean ehParaRevicer(Scanner sc) {
+    private static boolean ehParaReviver(Scanner sc) {
         final String[] OPCOES = {"Reviver", "Não"};
         final String TITULO = "Deseja reviver um pokemon?";
         final int escolhaSair = Imprima.escolhaUmaOpcao(sc, TITULO, OPCOES);
@@ -55,7 +55,7 @@ public final class Escolha {
     }
 
     public static void reviverPokemon(Scanner sc, Jogador jogador) {
-        final boolean ehParaReviver = Escolha.ehParaRevicer(sc);
+        final boolean ehParaReviver = Escolha.ehParaReviver(sc);
 
         if (!ehParaReviver) {
             return;

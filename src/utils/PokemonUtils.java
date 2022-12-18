@@ -1,6 +1,6 @@
 package utils;
 
-import errors.PPInsuficienteException;
+import errors.PpInsuficienteException;
 import errors.PedraEvolucaoException;
 import errors.PokemonException;
 import errors.SemPokemonsException;
@@ -51,7 +51,7 @@ public final class PokemonUtils {
             final Ataque ataque = Escolha.ataque(sc, pokemonAtacante);
             final int dano = pokemonAlvo.receberDano(ataque);
             Dialogo.resultadoAtaque(alvo, dano);
-        } catch (PPInsuficienteException e) {
+        } catch (PpInsuficienteException e) {
             Imprima.divisoriaEmbrulho(e.getMessage());
             atacar(sc, atacante, alvo);
         }
@@ -65,7 +65,7 @@ public final class PokemonUtils {
             final Ataque ataque = Escolha.ataque(pokemonAtacante);
             final int dano = pokemonAlvo.receberDano(ataque);
             Dialogo.resultadoAtaque(alvo, dano);
-        } catch (PPInsuficienteException e) {
+        } catch (PpInsuficienteException e) {
             Imprima.divisoriaEmbrulho(e.getMessage());
         }
     }

@@ -15,7 +15,7 @@ public final class Dialogo {
     }
 
     public static void fraseAdversario(Adversario adversario) {
-        Imprima.divisoriaEmbrulho(String.format("%s: %s%n", adversario.getNome(), adversario.getFrase()));
+        Imprima.divisoriaEmbrulho(String.format("%s: %s", adversario.getNome(), adversario.getFrase()));
     }
 
     public static void resultadoAtaque(Treinador alvo, int ataque) {
