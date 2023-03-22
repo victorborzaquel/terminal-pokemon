@@ -13,15 +13,7 @@ This is a Pokemon Battle game in Java Terminal. It was made for a test in Santan
 3. Run the Main.java file
 4. Enjoy the game
 
-## How to play
-
-### Menu
-
-Has three options:
-
-1. Start a new battle
-2. See the history of games
-3. Exit the game
+# Game Rules
 
 ## History
 
